@@ -7,7 +7,21 @@ Intention
 ---
 
 TODO
-
+* Desktop application
+* Kanban
+* Trello
+* Projects
+* Templates
+* Tags
+* Search
+* History
+* JSON
+* Report
+* DragAndDrop
+* Calendar
+* Links
+* Employeer
+* Mobil app (json -> export/import)
 
 
 Content
