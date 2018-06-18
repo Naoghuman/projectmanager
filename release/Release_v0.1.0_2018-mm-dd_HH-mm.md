@@ -15,6 +15,7 @@ TODO description
 
 
 #### Feature
+#4 New class ColorConverter and UnitTests.
 #2 Integration from the project template.
 
 
