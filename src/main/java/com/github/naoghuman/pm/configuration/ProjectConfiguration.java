@@ -14,19 +14,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.pm.application;
-
-import com.airhacks.afterburner.views.FXMLView;
+package com.github.naoghuman.pm.configuration;
 
 /**
  *
  * @author Naoghuman
  * @since  0.1.0
  */
-public class ApplicationView extends FXMLView {
+public interface ProjectConfiguration {
     
-    public ApplicationPresenter getRealPresenter() {
-        return (ApplicationPresenter) super.getPresenter();
-    }
+    public static final String ENTITY__TABLE_NAME__PROJECT = "Project"; // NOI18N
+    
+    public static final String NAMED_QUERY__NAME__FIND_ALL  = "Project.findAll"; // NOI18N
+    public static final String NAMED_QUERY__QUERY__FIND_ALL = "SELECT p FROM Project p"; // NOI18N
+    
+    public static final String PROJECT__COLUMN_NAME__GENERATION_TIME = "generationTime"; // NOI18N
+    public static final String PROJECT__COLUMN_NAME__ID              = "id"; // NOI18N
+    public static final String PROJECT__COLUMN_NAME__NAME            = "name"; // NOI18N
+    public static final String PROJECT__COLUMN_NAME__PROJECT_TYPE    = "projectType"; // NOI18N
     
 }

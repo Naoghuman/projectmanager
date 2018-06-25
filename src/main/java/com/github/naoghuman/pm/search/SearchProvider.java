@@ -14,19 +14,33 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.pm.application;
+package com.github.naoghuman.pm.search;
 
-import com.airhacks.afterburner.views.FXMLView;
+import com.github.naoghuman.lib.logger.core.LoggerFacade;
+import java.util.Optional;
+import javafx.scene.control.ToggleButton;
 
 /**
  *
  * @author Naoghuman
  * @since  0.1.0
  */
-public class ApplicationView extends FXMLView {
+public final class SearchProvider {
     
-    public ApplicationPresenter getRealPresenter() {
-        return (ApplicationPresenter) super.getPresenter();
+    private static final Optional<SearchProvider> INSTANCE = Optional.of(new SearchProvider());
+
+    public static final SearchProvider getDefault() {
+        return INSTANCE.get();
+    }
+    
+    private SearchProvider() {
+        
+    }
+    
+    public void onActionClickSearch(Optional<ToggleButton> optional) {
+        LoggerFacade.getDefault().debug(this.getClass(), "SearchProvider.onActionClickSearch(Optional<ToggleButton>)"); // NOI18N
+        
+        
     }
     
 }

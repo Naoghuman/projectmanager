@@ -1,12 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: AQUAMARINE;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.github.naoghuman.pm.application.ApplicationPresenter">
-
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: AQUAMARINE;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.pm.application.ApplicationPresenter">
+    <children>
+        <VBox layoutX="14.0" layoutY="14.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="128.0" spacing="14.0" style="-fx-background-color: SKYBLUE;" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
+            <children>
+                <ToggleButton fx:id="tbProjects" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onActionClickToggleButtonProjects" text="Projects">
+                    <toggleGroup>
+                        <ToggleGroup fx:id="toggleGroup" />
+                    </toggleGroup>
+                </ToggleButton>
+                <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onActionClickToggleButtonEmployeer" text="Employeer" toggleGroup="$toggleGroup" />
+                <ToggleButton fx:id="tbProjectTypes" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onActionClickToggleButtonProjectTypes" text="Projecttypes" toggleGroup="$toggleGroup" />
+                <ToggleButton fx:id="tbTags" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onActionClickToggleButtonTags" text="Tags" toggleGroup="$toggleGroup" />
+                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onActionClickSearch" text="Search" />
+                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onActionClickNew" text="New" />
+            </children>
+            <padding>
+                <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+            </padding>
+        </VBox>
+        <VBox fx:id="v" layoutX="156.0" layoutY="14.0" spacing="14.0" style="-fx-background-color: SKYBLUE;" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="156.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+            <children>
+                <Button fx:id="bHeader" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="&lt;header&gt;" />
+                <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
+                    <content>
+                        <FlowPane fx:id="fpProjects" hgap="14.0" style="-fx-background-color: AQUAMARINE;" vgap="14.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="Button" />
+                        <Button mnemonicParsing="false" text="Button" />
+                     </children></FlowPane>
+                    </content>
+                </ScrollPane>
+            </children>
+            <padding>
+                <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+            </padding>
+        </VBox>
+    </children>
 </AnchorPane>

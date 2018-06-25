@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Name
+ * Copyright (C) 2018 Naoghuman
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,6 @@ import com.github.naoghuman.pm.application.ApplicationView;
 import static javafx.application.Application.launch;
 
 import com.airhacks.afterburner.injection.Injector;
-import com.github.naoghuman.pm.configuration.IApplicationConfiguration;
 import com.github.naoghuman.lib.database.core.DatabaseFacade;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
@@ -33,12 +32,15 @@ import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import com.github.naoghuman.pm.configuration.ApplicationConfiguration;
+import com.github.naoghuman.pm.sql.SqlProvider;
 
 /**
  *
- * @author Name
+ * @author Naoghuman
+ * @since  0.1.0
  */
-public class StartApplication extends Application implements IApplicationConfiguration {
+public class StartApplication extends Application implements ApplicationConfiguration {
 
     public static void main(String[] args) {
         launch(args);
@@ -59,6 +61,7 @@ public class StartApplication extends Application implements IApplicationConfigu
         PreferencesFacade.getDefault().init(dropPreferencesFileAtStart);
         
         DatabaseFacade.getDefault().register(this.getProperty(KEY__APPLICATION__DATABASE));
+        SqlProvider.getDefault().initialize();
     }
     
     @Override

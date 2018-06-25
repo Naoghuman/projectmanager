@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 PRo
+ * Copyright (C) 2018 Naoghuman
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,8 @@ import javafx.scene.paint.Color;
 
 /**
  *
- * @author PRo
+ * @author Naoghuman
+ * @since  0.1.0
  */
 public final class ColorConverter {
     

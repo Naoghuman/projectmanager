@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 PRo
+ * Copyright (C) 2018 Naoghuman
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,8 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author PRo
+ * @author Naoghuman
+ * @since  0.1.0
  */
 public class ColorConverterTest {
     

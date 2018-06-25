@@ -14,19 +14,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.pm.application;
-
-import com.airhacks.afterburner.views.FXMLView;
+package com.github.naoghuman.pm.configuration;
 
 /**
  *
  * @author Naoghuman
  * @since  0.1.0
  */
-public class ApplicationView extends FXMLView {
+public interface DefaultConfiguration {
     
-    public ApplicationPresenter getRealPresenter() {
-        return (ApplicationPresenter) super.getPresenter();
-    }
+    public static final long DEFAULT_ID = -1L;
+    
+    public static final String SIGN__EMPTY = ""; // NOI18N
     
 }
