@@ -79,7 +79,26 @@ public class ApplicationPresenter implements Initializable, ActionConfiguration,
     public void register() {
         LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.register()"); // NOI18N
         
+        this.registerOnActionShowProject();
         this.registerOnActionShowProjectType();
+    }
+    
+    private void registerOnActionShowProject() {
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.registerOnActionShowProject()"); // NOI18N
+        
+        ActionHandlerFacade.getDefault().register(
+                ON_ACTION__SHOW__PROJECT,
+                (ActionEvent event) -> {
+                    final Object source = event.getSource();
+                    if (source instanceof TransferData) {
+                        final TransferData     transferData = (TransferData) source;
+                        final Optional<Object> optional     = transferData.getObject();
+                        if(optional.isPresent() && optional.get() instanceof Project) {
+                            final Project project = (Project) optional.get();
+                            this.onActionShowProject(project);
+                        }
+                    }
+                });
     }
     
     private void registerOnActionShowProjectType() {
@@ -187,7 +206,17 @@ public class ApplicationPresenter implements Initializable, ActionConfiguration,
         
         // Clear the content
         fpMainArea.getChildren().clear();
+    }
+
+    private void onActionShowProject(final Project project) {
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.onnActionShowProject(Project)"); // NOI18N
+          
+        // Set header
+        bHeader.setText("Project: " + project.getName()); // NOI18N
         
+        // Clear the content
+        tbProjects.setSelected(false);
+        fpMainArea.getChildren().clear();
     }
 
     private void onActionShowProjectType(final ProjectType projectType) {
