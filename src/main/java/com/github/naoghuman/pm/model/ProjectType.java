@@ -167,9 +167,9 @@ public class ProjectType implements
     @Override
     public int compareTo(final ProjectType other) {
         return new CompareToBuilder()
-                .append(other.getId(),    this.getId())
-                .append(other.getName(),  this.getName())
-                .append(other.getColor(), this.getColor())
+                .append(this.getId(),    other.getId())
+                .append(this.getName(),  other.getName())
+                .append(this.getColor(), other.getColor())
                 .toComparison();
     }
 

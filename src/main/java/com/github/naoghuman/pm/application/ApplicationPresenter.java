@@ -48,7 +48,7 @@ public class ApplicationPresenter implements Initializable, ActionConfiguration,
 
     @FXML private Button       bHeader;
     @FXML private FlowPane     fpMainArea;
-    @FXML private ToggleButton tbEmployeer;
+    @FXML private ToggleButton tbEmployeers;
     @FXML private ToggleButton tbProjectTypes;
     @FXML private ToggleButton tbProjects;
     @FXML private ToggleButton tbTags;
@@ -79,8 +79,27 @@ public class ApplicationPresenter implements Initializable, ActionConfiguration,
     public void register() {
         LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.register()"); // NOI18N
         
+        this.registerOnActionShowEmployeer();
         this.registerOnActionShowProject();
         this.registerOnActionShowProjectType();
+    }
+    
+    private void registerOnActionShowEmployeer() {
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.registerOnActionShowEmployeer()"); // NOI18N
+        
+        ActionHandlerFacade.getDefault().register(
+                ON_ACTION__SHOW__EMPLOYEER,
+                (ActionEvent event) -> {
+                    final Object source = event.getSource();
+                    if (source instanceof TransferData) {
+                        final TransferData     transferData = (TransferData) source;
+                        final Optional<Object> optional     = transferData.getObject();
+                        if(optional.isPresent() && optional.get() instanceof Employeer) {
+                            final Employeer employeer = (Employeer) optional.get();
+                            this.onActionShowEmployeer(employeer);
+                        }
+                    }
+                });
     }
     
     private void registerOnActionShowProject() {
@@ -205,6 +224,17 @@ public class ApplicationPresenter implements Initializable, ActionConfiguration,
         bHeader.setText(MAIN_PAGE__PROJECTS);
         
         // Clear the content
+        fpMainArea.getChildren().clear();
+    }
+
+    private void onActionShowEmployeer(final Employeer employeer) {
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.onnActionShowEmployeer(Employeer)"); // NOI18N
+          
+        // Set header
+        bHeader.setText("Employeer: " + employeer.getName()); // NOI18N
+        
+        // Clear the content
+        tbEmployeers.setSelected(false);
         fpMainArea.getChildren().clear();
     }
 

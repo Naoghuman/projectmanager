@@ -200,10 +200,10 @@ public class Project implements
     @Override
     public int compareTo(final Project other) {
         return new CompareToBuilder()
-                .append(other.getId(),             this.getId())
-                .append(other.getGenerationTime(), this.getGenerationTime())
-                .append(other.getName(),           this.getName())
-                .append(other.getProjectType(),    this.getProjectType())
+                .append(this.getId(),             other.getId())
+                .append(this.getGenerationTime(), other.getGenerationTime())
+                .append(this.getName(),           other.getName())
+                .append(this.getProjectType(),    other.getProjectType())
                 .toComparison();
     }
 

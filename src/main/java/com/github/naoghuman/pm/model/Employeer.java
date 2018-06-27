@@ -17,8 +17,6 @@
 package com.github.naoghuman.pm.model;
 
 import com.github.naoghuman.pm.configuration.DefaultConfiguration;
-import static com.github.naoghuman.pm.configuration.DefaultConfiguration.DEFAULT_ID;
-import static com.github.naoghuman.pm.configuration.DefaultConfiguration.SIGN__EMPTY;
 import com.github.naoghuman.pm.configuration.EmployeerConfiguration;
 import java.io.Externalizable;
 import java.io.IOException;
@@ -170,9 +168,9 @@ public class Employeer implements
     @Override
     public int compareTo(final Employeer other) {
         return new CompareToBuilder()
-                .append(other.getId(),             this.getId())
-                .append(other.getGenerationTime(), this.getGenerationTime())
-                .append(other.getName(),           this.getName())
+                .append(this.getId(),             other.getId())
+                .append(this.getGenerationTime(), other.getGenerationTime())
+                .append(this.getName(),           other.getName())
                 .toComparison();
     }
 

@@ -15,6 +15,7 @@ TODO description
 
 
 #### Feature
+#7 Create basic subpage for Employeer.
 #6 Create basic subpage for Projects.
 #5 Basic implementation from Employeer.
 #4 New class ColorConverter and UnitTests.

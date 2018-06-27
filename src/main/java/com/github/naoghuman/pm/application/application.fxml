@@ -18,7 +18,7 @@
                         <ToggleGroup fx:id="toggleGroup" />
                     </toggleGroup>
                 </ToggleButton>
-                <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onActionClickToggleButtonEmployeer" text="Employeer" toggleGroup="$toggleGroup" />
+                <ToggleButton fx:id="tbEmployeers" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onActionClickToggleButtonEmployeer" text="Employeers" toggleGroup="$toggleGroup" />
                 <ToggleButton fx:id="tbProjectTypes" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onActionClickToggleButtonProjectTypes" text="Projecttypes" toggleGroup="$toggleGroup" />
                 <ToggleButton fx:id="tbTags" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onActionClickToggleButtonTags" text="Tags" toggleGroup="$toggleGroup" />
                 <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onActionClickSearch" text="Search" />
