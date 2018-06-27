@@ -17,6 +17,7 @@
 package com.github.naoghuman.pm.sql;
 
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
+import com.github.naoghuman.pm.model.Project;
 import com.github.naoghuman.pm.model.ProjectType;
 import java.util.Optional;
 import javafx.collections.ObservableList;
@@ -39,6 +40,17 @@ public final class SqlProvider {
         
     }
     
+    public void createProject(final Project project) {
+        final StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        
+        ProjectSqlService.getDefault().create(project);
+        
+        stopWatch.split();
+        this.printToLog(stopWatch.toSplitString(), 1, "SqlProvider.createProject(Project)"); // NOI18N
+        stopWatch.stop();
+    }
+    
     public void createProjectType(final ProjectType projectType) {
         final StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -48,6 +60,32 @@ public final class SqlProvider {
         stopWatch.split();
         this.printToLog(stopWatch.toSplitString(), 1, "SqlProvider.createProjectType(ProjectType)"); // NOI18N
         stopWatch.stop();
+    }
+    
+    public ObservableList<Project> findAllProjects() {
+        final StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        
+        final ObservableList<Project> projects = ProjectSqlService.getDefault().findAllProjects();
+        
+        stopWatch.split();
+        this.printToLog(stopWatch.toSplitString(), projects.size(), "SqlProvider.findAllProjects(): ObservableList<ProjectType>"); // NOI18N
+        stopWatch.stop();
+        
+        return projects;
+    }
+    
+    public ObservableList<Project> findAllProjectsWithName(final String name) {
+        final StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        
+        final ObservableList<Project> projects = ProjectSqlService.getDefault().findAllProjectsWithName(name);
+        
+        stopWatch.split();
+        this.printToLog(stopWatch.toSplitString(), projects.size(), "SqlProvider.findAllProjectsWithName(String): ObservableList<ProjectType>"); // NOI18N
+        stopWatch.stop();
+        
+        return projects;
     }
     
     public ObservableList<ProjectType> findAllProjectTypes() {
@@ -86,6 +124,28 @@ public final class SqlProvider {
         this.printToLog(stopWatch.toSplitString(), 1, "SqlProvider.initialize()"); // NOI18N
         stopWatch.stop();
     }
+
+    public void initializeTestData() {
+        final StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        
+        this.initializeTestDataProjects();
+        
+        stopWatch.split();
+        this.printToLog(stopWatch.toSplitString(), 1, "SqlProvider.initializeTestData()"); // NOI18N
+        stopWatch.stop();
+    }
+    
+    private void initializeTestDataProjects() {
+        final StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        
+        ProjectSqlService.getDefault().initializeTestData();
+        
+        stopWatch.split();
+        this.printToLog(stopWatch.toSplitString(), 1, "SqlProvider.initializeTestDataProjects()"); // NOI18N
+        stopWatch.stop();
+    }
     
     private void initializeProjectTypes() {
         final StopWatch stopWatch = new StopWatch();
@@ -111,11 +171,22 @@ public final class SqlProvider {
         LoggerFacade.getDefault().debug(this.getClass(), sb.toString());
     }
     
-    public void updateProjectType(final ProjectType prototype) {
+    public void updateProject(final Project project) {
         final StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         
-        ProjectTypeSqlService.getDefault().update(prototype);
+        ProjectSqlService.getDefault().update(project);
+        
+        stopWatch.split();
+        this.printToLog(stopWatch.toSplitString(), 1, "SqlProvider.updateProject(Project)"); // NOI18N
+        stopWatch.stop();
+    }
+    
+    public void updateProjectType(final ProjectType projectType) {
+        final StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        
+        ProjectTypeSqlService.getDefault().update(projectType);
         
         stopWatch.split();
         this.printToLog(stopWatch.toSplitString(), 1, "SqlProvider.updateProjectType(ProjectType)"); // NOI18N

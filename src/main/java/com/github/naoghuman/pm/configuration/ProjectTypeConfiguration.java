@@ -25,9 +25,8 @@ public interface ProjectTypeConfiguration {
     
     public static final String ENTITY__TABLE_NAME__PROJECT_TYPE = "ProjectType"; // NOI18N
     
-    public static final String NAMED_QUERY__NAME__FIND_ALL  = "ProjectType.findAll"; // NOI18N
-    public static final String NAMED_QUERY__QUERY__FIND_ALL = "SELECT pt FROM ProjectType pt"; // NOI18N
-    
+    public static final String NAMED_QUERY__NAME__FIND_ALL            = "ProjectType.findAll"; // NOI18N
+    public static final String NAMED_QUERY__QUERY__FIND_ALL           = "SELECT pt FROM ProjectType pt"; // NOI18N
     public static final String NAMED_QUERY__NAME__FIND_ALL_WITH_NAME  = "ProjectType.findAllWithName"; // NOI18N
     public static final String NAMED_QUERY__QUERY__FIND_ALL_WITH_NAME = "SELECT pt FROM ProjectType pt WHERE pt.name == :name"; // NOI18N
     

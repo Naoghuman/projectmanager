@@ -131,6 +131,18 @@
         </dependency>
         <dependency>
             <groupId>com.github.naoghuman</groupId>
+            <artifactId>lib-tag-core</artifactId>
+            <version>0.3.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.github.naoghuman</groupId>
+            <artifactId>lib-tag-component</artifactId>
+            <version>0.3.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.github.naoghuman</groupId>
             <artifactId>lib-validation</artifactId>
             <version>0.2.0</version>
             <type>jar</type>

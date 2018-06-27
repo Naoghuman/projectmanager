@@ -36,7 +36,7 @@ import javafx.scene.paint.Color;
  * @author Naoghuman
  * @since  0.1.0
  */
-public final class ProjectTypeSqlService implements DefaultConfiguration, ProjectTypeConfiguration {
+final class ProjectTypeSqlService implements DefaultConfiguration, ProjectTypeConfiguration {
     
     private static final Optional<ProjectTypeSqlService> INSTANCE = Optional.of(new ProjectTypeSqlService());
 
@@ -91,7 +91,7 @@ public final class ProjectTypeSqlService implements DefaultConfiguration, Projec
     }
 
     void initialize() {
-        LoggerFacade.getDefault().debug(this.getClass(), "ProjectTypeSqlService.initialize()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "ProjectTypeSqlService.initialize()"); // NOI18N
         
         final ObservableList<ProjectType> projectTypes = FXCollections.observableArrayList();
         projectTypes.addAll(this.findAllProjectTypesWithName(PROJECTTYPE__NAME_DEFECT));

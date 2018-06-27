@@ -22,6 +22,7 @@ import com.github.naoghuman.lib.action.core.TransferData;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.pm.configuration.ActionConfiguration;
 import com.github.naoghuman.pm.configuration.ApplicationConfiguration;
+import com.github.naoghuman.pm.model.Project;
 import com.github.naoghuman.pm.model.ProjectType;
 import com.github.naoghuman.pm.sql.SqlProvider;
 import com.github.naoghuman.pm.view.component.ButtonBuilder;
@@ -45,7 +46,7 @@ import javafx.scene.layout.FlowPane;
 public class ApplicationPresenter implements Initializable, ActionConfiguration, ApplicationConfiguration, RegisterActions {
 
     @FXML private Button       bHeader;
-    @FXML private FlowPane     fpProjects;
+    @FXML private FlowPane     fpMainArea;
     @FXML private ToggleButton tbEmployeer;
     @FXML private ToggleButton tbProjectTypes;
     @FXML private ToggleButton tbProjects;
@@ -130,7 +131,7 @@ public class ApplicationPresenter implements Initializable, ActionConfiguration,
         bHeader.setText(MAIN_PAGE__EMPLOYEER);
         
         // Clear the content
-        fpProjects.getChildren().clear();
+        fpMainArea.getChildren().clear();
         
     }
     
@@ -141,8 +142,15 @@ public class ApplicationPresenter implements Initializable, ActionConfiguration,
         bHeader.setText(MAIN_PAGE__PROJECTS);
         
         // Clear the content
-        fpProjects.getChildren().clear();
+        fpMainArea.getChildren().clear();
         
+        // Load new content
+        final ObservableList<Project> projects = SqlProvider.getDefault().findAllProjects();
+        projects.stream()
+                .forEach(project -> {
+                    final Button btn = ButtonBuilder.getDefault().getButton(project);
+                    fpMainArea.getChildren().add(btn);
+                });
     }
     
     public void onActionClickToggleButtonProjectTypes() {
@@ -152,14 +160,14 @@ public class ApplicationPresenter implements Initializable, ActionConfiguration,
         bHeader.setText(MAIN_PAGE__PROJECT_TYPES);
         
         // Clear the content
-        fpProjects.getChildren().clear();
+        fpMainArea.getChildren().clear();
         
         // Load new content
         final ObservableList<ProjectType> projectTypes = SqlProvider.getDefault().findAllProjectTypes();
         projectTypes.stream()
                 .forEach(projectType -> {
                     final Button btn = ButtonBuilder.getDefault().getButton(projectType);
-                    fpProjects.getChildren().add(btn);
+                    fpMainArea.getChildren().add(btn);
                 });
     }
     
@@ -170,7 +178,7 @@ public class ApplicationPresenter implements Initializable, ActionConfiguration,
         bHeader.setText(MAIN_PAGE__PROJECTS);
         
         // Clear the content
-        fpProjects.getChildren().clear();
+        fpMainArea.getChildren().clear();
         
     }
 
@@ -182,7 +190,7 @@ public class ApplicationPresenter implements Initializable, ActionConfiguration,
         
         // Clear the content
         tbProjectTypes.setSelected(false);
-        fpProjects.getChildren().clear();
+        fpMainArea.getChildren().clear();
     }
     
 }

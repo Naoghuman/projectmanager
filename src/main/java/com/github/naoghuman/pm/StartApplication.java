@@ -62,6 +62,9 @@ public class StartApplication extends Application implements ApplicationConfigur
         
         DatabaseFacade.getDefault().register(this.getProperty(KEY__APPLICATION__DATABASE));
         SqlProvider.getDefault().initialize();
+        
+        // TODO Read property from pom.xml
+        SqlProvider.getDefault().initializeTestData();
     }
     
     @Override

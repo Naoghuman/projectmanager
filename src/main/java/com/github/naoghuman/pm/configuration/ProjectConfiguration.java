@@ -25,8 +25,10 @@ public interface ProjectConfiguration {
     
     public static final String ENTITY__TABLE_NAME__PROJECT = "Project"; // NOI18N
     
-    public static final String NAMED_QUERY__NAME__FIND_ALL  = "Project.findAll"; // NOI18N
-    public static final String NAMED_QUERY__QUERY__FIND_ALL = "SELECT p FROM Project p"; // NOI18N
+    public static final String NAMED_QUERY__NAME__FIND_ALL            = "Project.findAll"; // NOI18N
+    public static final String NAMED_QUERY__QUERY__FIND_ALL           = "SELECT p FROM Project p"; // NOI18N
+    public static final String NAMED_QUERY__NAME__FIND_ALL_WITH_NAME  = "Project.findAllWithName"; // NOI18N
+    public static final String NAMED_QUERY__QUERY__FIND_ALL_WITH_NAME = "SELECT p FROM Project p WHERE p.name == :name"; // NOI18N
     
     public static final String PROJECT__COLUMN_NAME__GENERATION_TIME = "generationTime"; // NOI18N
     public static final String PROJECT__COLUMN_NAME__ID              = "id"; // NOI18N

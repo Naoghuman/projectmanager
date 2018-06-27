@@ -50,7 +50,10 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 @NamedQueries({
     @NamedQuery(
             name  = ProjectConfiguration.NAMED_QUERY__NAME__FIND_ALL,
-            query = ProjectConfiguration.NAMED_QUERY__QUERY__FIND_ALL)
+            query = ProjectConfiguration.NAMED_QUERY__QUERY__FIND_ALL),
+    @NamedQuery(
+            name  = ProjectConfiguration.NAMED_QUERY__NAME__FIND_ALL_WITH_NAME,
+            query = ProjectConfiguration.NAMED_QUERY__QUERY__FIND_ALL_WITH_NAME)
 })
 public class Project implements 
         Comparable<Project>, Externalizable, 

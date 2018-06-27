@@ -21,6 +21,7 @@ import com.github.naoghuman.lib.action.core.TransferData;
 import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.pm.configuration.ActionConfiguration;
+import com.github.naoghuman.pm.model.Project;
 import com.github.naoghuman.pm.model.ProjectType;
 import java.util.Optional;
 import javafx.scene.control.Button;
@@ -42,8 +43,27 @@ public final class ButtonBuilder implements ActionConfiguration {
         
     }
     
+    public Button getButton(final Project project) {
+        LoggerFacade.getDefault().debug(this.getClass(), "ButtonBuilder.getButton(Project)"); // NOI18N
+        
+        final Button btn = new Button();
+        btn.setPrefSize(256.0d, 128.0d);
+        btn.setText(project.getName());
+        btn.setUserData(project);
+        
+        btn.setOnAction(event -> {
+            final TransferData transferData = TransferDataBuilder.create()
+                    .actionId(ON_ACTION__SHOW__PROJECT)
+                    .objectValue(project)
+                    .build();
+            ActionHandlerFacade.getDefault().handle(transferData);
+        });
+        
+        return btn;
+    }
+    
     public Button getButton(final ProjectType projectType) {
-        LoggerFacade.getDefault().debug(this.getClass(), "ButtonBuilder.getButton()"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "ButtonBuilder.getButton(ProjectType)"); // NOI18N
         
         final Button btn = new Button();
         btn.setPrefSize(256.0d, 128.0d);

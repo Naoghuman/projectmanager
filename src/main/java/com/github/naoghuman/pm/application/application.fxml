@@ -33,11 +33,12 @@
                 <Button fx:id="bHeader" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="&lt;header&gt;" />
                 <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
                     <content>
-                        <FlowPane fx:id="fpProjects" hgap="14.0" style="-fx-background-color: AQUAMARINE;" vgap="14.0">
-                     <children>
-                        <Button mnemonicParsing="false" text="Button" />
-                        <Button mnemonicParsing="false" text="Button" />
-                     </children></FlowPane>
+                        <FlowPane fx:id="fpMainArea" hgap="14.0" style="-fx-background-color: AQUAMARINE;" vgap="14.0">
+                            <children>
+                                <Button mnemonicParsing="false" text="Button" />
+                                <Button mnemonicParsing="false" text="Button" />
+                            </children>
+                        </FlowPane>
                     </content>
                 </ScrollPane>
             </children>
