@@ -17,6 +17,7 @@
 package com.github.naoghuman.pm.sql;
 
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
+import com.github.naoghuman.pm.model.Employeer;
 import com.github.naoghuman.pm.model.Project;
 import com.github.naoghuman.pm.model.ProjectType;
 import java.util.Optional;
@@ -38,6 +39,17 @@ public final class SqlProvider {
     
     private SqlProvider() {
         
+    }
+    
+    public void createEmployeer(final Employeer employeer) {
+        final StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        
+        EmployeerSqlService.getDefault().create(employeer);
+        
+        stopWatch.split();
+        this.printToLog(stopWatch.toSplitString(), 1, "SqlProvider.createEmployeer(Employeer)"); // NOI18N
+        stopWatch.stop();
     }
     
     public void createProject(final Project project) {
@@ -62,6 +74,32 @@ public final class SqlProvider {
         stopWatch.stop();
     }
     
+    public ObservableList<Employeer> findAllEmployeers() {
+        final StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        
+        final ObservableList<Employeer> employeers = EmployeerSqlService.getDefault().findAllEmployeers();
+        
+        stopWatch.split();
+        this.printToLog(stopWatch.toSplitString(), employeers.size(), "SqlProvider.findAllEmployeers(): ObservableList<Employeer>"); // NOI18N
+        stopWatch.stop();
+        
+        return employeers;
+    }
+    
+    public ObservableList<Employeer> findAllEmployeersWithName(final String name) {
+        final StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        
+        final ObservableList<Employeer> employeers = EmployeerSqlService.getDefault().findAllEmployeersWithName(name);
+        
+        stopWatch.split();
+        this.printToLog(stopWatch.toSplitString(), employeers.size(), "SqlProvider.findAllEmployeersWithName(String): ObservableList<Employeer>"); // NOI18N
+        stopWatch.stop();
+        
+        return employeers;
+    }
+    
     public ObservableList<Project> findAllProjects() {
         final StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -69,7 +107,7 @@ public final class SqlProvider {
         final ObservableList<Project> projects = ProjectSqlService.getDefault().findAllProjects();
         
         stopWatch.split();
-        this.printToLog(stopWatch.toSplitString(), projects.size(), "SqlProvider.findAllProjects(): ObservableList<ProjectType>"); // NOI18N
+        this.printToLog(stopWatch.toSplitString(), projects.size(), "SqlProvider.findAllProjects(): ObservableList<Project>"); // NOI18N
         stopWatch.stop();
         
         return projects;
@@ -82,7 +120,7 @@ public final class SqlProvider {
         final ObservableList<Project> projects = ProjectSqlService.getDefault().findAllProjectsWithName(name);
         
         stopWatch.split();
-        this.printToLog(stopWatch.toSplitString(), projects.size(), "SqlProvider.findAllProjectsWithName(String): ObservableList<ProjectType>"); // NOI18N
+        this.printToLog(stopWatch.toSplitString(), projects.size(), "SqlProvider.findAllProjectsWithName(String): ObservableList<Project>"); // NOI18N
         stopWatch.stop();
         
         return projects;
@@ -129,10 +167,22 @@ public final class SqlProvider {
         final StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         
+        this.initializeTestDataEmployeers();
         this.initializeTestDataProjects();
         
         stopWatch.split();
         this.printToLog(stopWatch.toSplitString(), 1, "SqlProvider.initializeTestData()"); // NOI18N
+        stopWatch.stop();
+    }
+    
+    private void initializeTestDataEmployeers() {
+        final StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        
+        EmployeerSqlService.getDefault().initializeTestData();
+        
+        stopWatch.split();
+        this.printToLog(stopWatch.toSplitString(), 1, "SqlProvider.initializeTestDataEmployeers()"); // NOI18N
         stopWatch.stop();
     }
     
@@ -169,6 +219,17 @@ public final class SqlProvider {
         sb.append("]");
         
         LoggerFacade.getDefault().debug(this.getClass(), sb.toString());
+    }
+    
+    public void updateEmployeer(final Employeer employeer) {
+        final StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        
+        EmployeerSqlService.getDefault().update(employeer);
+        
+        stopWatch.split();
+        this.printToLog(stopWatch.toSplitString(), 1, "SqlProvider.updateEmployeer(Employeer)"); // NOI18N
+        stopWatch.stop();
     }
     
     public void updateProject(final Project project) {

@@ -21,6 +21,7 @@ import com.github.naoghuman.lib.action.core.TransferData;
 import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.pm.configuration.ActionConfiguration;
+import com.github.naoghuman.pm.model.Employeer;
 import com.github.naoghuman.pm.model.Project;
 import com.github.naoghuman.pm.model.ProjectType;
 import java.util.Optional;
@@ -43,18 +44,24 @@ public final class ButtonBuilder implements ActionConfiguration {
         
     }
     
-    public Button getButton(final Project project) {
-        LoggerFacade.getDefault().debug(this.getClass(), "ButtonBuilder.getButton(Project)"); // NOI18N
+    public Button getButton(final Employeer employeer) {
+        LoggerFacade.getDefault().debug(this.getClass(), "ButtonBuilder.getButton(Employeer)"); // NOI18N
+        
+        return this.getButton(employeer.getName(), employeer, ON_ACTION__SHOW__PROJECT);
+    }
+    
+    private Button getButton(final String name, final Object userData, final String actionId) {
+        LoggerFacade.getDefault().debug(this.getClass(), "ButtonBuilder.getButton(String, Object, String)"); // NOI18N
         
         final Button btn = new Button();
         btn.setPrefSize(256.0d, 128.0d);
-        btn.setText(project.getName());
-        btn.setUserData(project);
+        btn.setText(name);
+        btn.setUserData(userData);
         
         btn.setOnAction(event -> {
             final TransferData transferData = TransferDataBuilder.create()
-                    .actionId(ON_ACTION__SHOW__PROJECT)
-                    .objectValue(project)
+                    .actionId(actionId)
+                    .objectValue(userData)
                     .build();
             ActionHandlerFacade.getDefault().handle(transferData);
         });
@@ -62,23 +69,16 @@ public final class ButtonBuilder implements ActionConfiguration {
         return btn;
     }
     
+    public Button getButton(final Project project) {
+        LoggerFacade.getDefault().debug(this.getClass(), "ButtonBuilder.getButton(Project)"); // NOI18N
+
+        return this.getButton(project.getName(), project, ON_ACTION__SHOW__PROJECT);
+    }
+    
     public Button getButton(final ProjectType projectType) {
         LoggerFacade.getDefault().debug(this.getClass(), "ButtonBuilder.getButton(ProjectType)"); // NOI18N
-        
-        final Button btn = new Button();
-        btn.setPrefSize(256.0d, 128.0d);
-        btn.setText(projectType.getName());
-        btn.setUserData(projectType);
-        
-        btn.setOnAction(event -> {
-            final TransferData transferData = TransferDataBuilder.create()
-                    .actionId(ON_ACTION__SHOW__PROJECT_TYPE)
-                    .objectValue(projectType)
-                    .build();
-            ActionHandlerFacade.getDefault().handle(transferData);
-        });
-        
-        return btn;
+
+        return this.getButton(projectType.getName(), projectType, ON_ACTION__SHOW__PROJECT_TYPE);
     }
     
 }

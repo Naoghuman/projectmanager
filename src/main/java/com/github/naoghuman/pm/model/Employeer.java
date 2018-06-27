@@ -17,7 +17,9 @@
 package com.github.naoghuman.pm.model;
 
 import com.github.naoghuman.pm.configuration.DefaultConfiguration;
-import com.github.naoghuman.pm.configuration.ProjectConfiguration;
+import static com.github.naoghuman.pm.configuration.DefaultConfiguration.DEFAULT_ID;
+import static com.github.naoghuman.pm.configuration.DefaultConfiguration.SIGN__EMPTY;
+import com.github.naoghuman.pm.configuration.EmployeerConfiguration;
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
@@ -40,38 +42,37 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
- * 
+ *
  * @author Naoghuman
  * @since  0.1.0
  */
 @Entity
 @Access(AccessType.PROPERTY)
-@Table(name = ProjectConfiguration.ENTITY__TABLE_NAME__PROJECT)
+@Table(name = EmployeerConfiguration.ENTITY__TABLE_NAME__EMPLOYEER)
 @NamedQueries({
     @NamedQuery(
-            name  = ProjectConfiguration.NAMED_QUERY__NAME__FIND_ALL,
-            query = ProjectConfiguration.NAMED_QUERY__QUERY__FIND_ALL),
+            name  = EmployeerConfiguration.NAMED_QUERY__NAME__FIND_ALL,
+            query = EmployeerConfiguration.NAMED_QUERY__QUERY__FIND_ALL),
     @NamedQuery(
-            name  = ProjectConfiguration.NAMED_QUERY__NAME__FIND_ALL_WITH_NAME,
-            query = ProjectConfiguration.NAMED_QUERY__QUERY__FIND_ALL_WITH_NAME)
+            name  = EmployeerConfiguration.NAMED_QUERY__NAME__FIND_ALL_WITH_NAME,
+            query = EmployeerConfiguration.NAMED_QUERY__QUERY__FIND_ALL_WITH_NAME)
 })
-public class Project implements 
-        Comparable<Project>, Externalizable, 
-        DefaultConfiguration, ProjectConfiguration
+public class Employeer implements 
+        Comparable<Employeer>, Externalizable, 
+        DefaultConfiguration, EmployeerConfiguration
 {
-    public Project() {
-        this(DEFAULT_ID, DEFAULT_ID, SIGN__EMPTY, DEFAULT_ID);
+    public Employeer() {
+        this(DEFAULT_ID, DEFAULT_ID, SIGN__EMPTY);
     }
     
-    public Project(final long id, final long generationTime, final String name, final long projectType) {
-        this.init(id, generationTime, name, projectType);
+    public Employeer(final long id, final long generationTime, final String name) {
+        this.init(id, generationTime, name);
     }
     
-    private void init(final long id, final long generationTime, final String name, final long projectType) {
+    private void init(final long id, final long generationTime, final String name) {
         this.setId(id);
         this.setGenerationTime(generationTime);
         this.setName(name);
-        this.setProjectType(projectType);
     }
     
     // START  ID ---------------------------------------------------------------
@@ -79,7 +80,7 @@ public class Project implements
     private long _id = DEFAULT_ID;
 
     @Id
-    @Column(name = PROJECT__COLUMN_NAME__ID)
+    @Column(name = EMPLOYEER__COLUMN_NAME__ID)
     public long getId() {
         if (idProperty == null) {
             return _id;
@@ -98,7 +99,7 @@ public class Project implements
 
     public LongProperty idProperty() {
         if (idProperty == null) {
-            idProperty = new SimpleLongProperty(this, PROJECT__COLUMN_NAME__ID, _id);
+            idProperty = new SimpleLongProperty(this, EMPLOYEER__COLUMN_NAME__ID, _id);
         }
         
         return idProperty;
@@ -110,7 +111,7 @@ public class Project implements
     private long _generationTime = DEFAULT_ID;
 
     @Id
-    @Column(name = PROJECT__COLUMN_NAME__GENERATION_TIME)
+    @Column(name = EMPLOYEER__COLUMN_NAME__GENERATION_TIME)
     public long getGenerationTime() {
         if (generationTimeProperty == null) {
             return _generationTime;
@@ -129,7 +130,7 @@ public class Project implements
 
     public LongProperty generationTimeProperty() {
         if (generationTimeProperty == null) {
-            generationTimeProperty = new SimpleLongProperty(this, PROJECT__COLUMN_NAME__GENERATION_TIME, _generationTime);
+            generationTimeProperty = new SimpleLongProperty(this, EMPLOYEER__COLUMN_NAME__GENERATION_TIME, _generationTime);
         }
         
         return generationTimeProperty;
@@ -140,7 +141,7 @@ public class Project implements
     private StringProperty nameProperty = null;
     private String _name = SIGN__EMPTY;
     
-    @Column(name = PROJECT__COLUMN_NAME__NAME)
+    @Column(name = EMPLOYEER__COLUMN_NAME__NAME)
     public String getName() {
         if (nameProperty == null) {
             return _name;
@@ -159,51 +160,19 @@ public class Project implements
     
     public StringProperty nameProperty() {
         if (nameProperty == null) {
-            nameProperty = new SimpleStringProperty(this, PROJECT__COLUMN_NAME__NAME, _name);
+            nameProperty = new SimpleStringProperty(this, EMPLOYEER__COLUMN_NAME__NAME, _name);
         }
         
         return nameProperty;
     }
     // END  NAME ---------------------------------------------------------------
-    
-    // START  PROJECTTYPE ------------------------------------------------------
-    private LongProperty projectTypeProperty;
-    private long _projectType = DEFAULT_ID;
-
-    @Id
-    @Column(name = PROJECT__COLUMN_NAME__PROJECT_TYPE)
-    public long getProjectType() {
-        if (projectTypeProperty == null) {
-            return _projectType;
-        } else {
-            return projectTypeProperty.get();
-        }
-    }
-
-    public final void setProjectType(final long projectType) {
-        if (projectTypeProperty == null) {
-            _projectType = projectType;
-        } else {
-            projectTypeProperty.set(projectType);
-        }
-    }
-
-    public LongProperty projectTypeProperty() {
-        if (projectTypeProperty == null) {
-            projectTypeProperty = new SimpleLongProperty(this, PROJECT__COLUMN_NAME__PROJECT_TYPE, _projectType);
-        }
-        
-        return projectTypeProperty;
-    }
-    // END  PROJECTTYPE --------------------------------------------------------
 
     @Override
-    public int compareTo(final Project other) {
+    public int compareTo(final Employeer other) {
         return new CompareToBuilder()
                 .append(other.getId(),             this.getId())
                 .append(other.getGenerationTime(), this.getGenerationTime())
                 .append(other.getName(),           this.getName())
-                .append(other.getProjectType(),    this.getProjectType())
                 .toComparison();
     }
 
@@ -220,12 +189,11 @@ public class Project implements
             return false;
         }
         
-        final Project other = (Project) obj;
+        final Employeer other = (Employeer) obj;
         return new EqualsBuilder()
                 .append(this.getId(),             other.getId())
                 .append(this.getGenerationTime(), other.getGenerationTime())
                 .append(this.getName(),           other.getName())
-                .append(this.getProjectType(),    other.getProjectType())
                 .isEquals();
     }
     
@@ -235,17 +203,15 @@ public class Project implements
                 .append(this.getId())
                 .append(this.getGenerationTime())
                 .append(this.getName())
-                .append(this.getProjectType())
                 .toHashCode();
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .append(PROJECT__COLUMN_NAME__ID,              this.getId())
-                .append(PROJECT__COLUMN_NAME__GENERATION_TIME, this.getGenerationTime())
-                .append(PROJECT__COLUMN_NAME__NAME,            this.getName())
-                .append(PROJECT__COLUMN_NAME__PROJECT_TYPE,    this.getProjectType())
+                .append(EMPLOYEER__COLUMN_NAME__ID,              this.getId())
+                .append(EMPLOYEER__COLUMN_NAME__GENERATION_TIME, this.getGenerationTime())
+                .append(EMPLOYEER__COLUMN_NAME__NAME,            this.getName())
                 .toString();
     }
     
@@ -254,7 +220,6 @@ public class Project implements
         out.writeLong(this.getId());
         out.writeLong(this.getGenerationTime());
         out.writeObject(this.getName());
-        out.writeLong(this.getProjectType());
     }
 
     @Override
@@ -262,7 +227,6 @@ public class Project implements
         this.setId(in.readLong());
         this.setGenerationTime(in.readLong());
         this.setName(String.valueOf(in.readLong()));
-        this.setProjectType(in.readLong());
     }
     
 }

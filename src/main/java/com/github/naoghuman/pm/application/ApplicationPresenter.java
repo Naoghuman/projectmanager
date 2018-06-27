@@ -22,6 +22,7 @@ import com.github.naoghuman.lib.action.core.TransferData;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.pm.configuration.ActionConfiguration;
 import com.github.naoghuman.pm.configuration.ApplicationConfiguration;
+import com.github.naoghuman.pm.model.Employeer;
 import com.github.naoghuman.pm.model.Project;
 import com.github.naoghuman.pm.model.ProjectType;
 import com.github.naoghuman.pm.sql.SqlProvider;
@@ -133,6 +134,13 @@ public class ApplicationPresenter implements Initializable, ActionConfiguration,
         // Clear the content
         fpMainArea.getChildren().clear();
         
+        // Load new content
+        final ObservableList<Employeer> employeers = SqlProvider.getDefault().findAllEmployeers();
+        employeers.stream()
+                .forEach(employeer -> {
+                    final Button btn = ButtonBuilder.getDefault().getButton(employeer);
+                    fpMainArea.getChildren().add(btn);
+                });
     }
     
     public void onActionClickToggleButtonProjects() {

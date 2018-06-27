@@ -19,14 +19,8 @@ package com.github.naoghuman.pm.sql;
 import com.github.naoghuman.lib.database.core.DatabaseFacade;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.pm.configuration.DefaultConfiguration;
-import static com.github.naoghuman.pm.configuration.DefaultConfiguration.DEFAULT_ID;
 import com.github.naoghuman.pm.configuration.ProjectConfiguration;
-import static com.github.naoghuman.pm.configuration.ProjectTypeConfiguration.NAMED_QUERY__NAME__FIND_ALL_WITH_NAME;
-import static com.github.naoghuman.pm.configuration.ProjectTypeConfiguration.PROJECTTYPE__COLUMN_NAME__NAME;
-import static com.github.naoghuman.pm.configuration.ProjectTypeConfiguration.PROJECTTYPE__NAME_DEFECT;
-import static com.github.naoghuman.pm.configuration.ProjectTypeConfiguration.PROJECTTYPE__NAME_PROJECT;
-import static com.github.naoghuman.pm.configuration.ProjectTypeConfiguration.PROJECTTYPE__NAME_TEMPLATE;
-import com.github.naoghuman.pm.converter.ColorConverter;
+import com.github.naoghuman.pm.configuration.ProjectTypeConfiguration;
 import com.github.naoghuman.pm.model.Project;
 import com.github.naoghuman.pm.model.ProjectType;
 import java.util.Collections;
@@ -36,7 +30,6 @@ import java.util.Objects;
 import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.paint.Color;
 
 /**
  *
@@ -75,14 +68,12 @@ final class ProjectSqlService implements DefaultConfiguration, ProjectConfigurat
         final String PROJECT__TEST_DATA__PROJECT_B = "Project B"; // NOI18N
         final String PROJECT__TEST_DATA__PROJECT_C = "Project C"; // NOI18N
         
-        // public Project(final long id, final long generationTime, 
-        // final String name, final long projectType)
-        
         final ObservableList<Project> projects = FXCollections.observableArrayList();
         projects.addAll(this.findAllProjectsWithName(PROJECT__TEST_DATA__PROJECT_A));
         if (projects.isEmpty()) {
             final ObservableList<ProjectType> projectTypes = FXCollections.observableArrayList();
-            projectTypes.addAll(SqlProvider.getDefault().findAllProjectTypesWithName(PROJECTTYPE__NAME_DEFECT));
+            projectTypes.addAll(SqlProvider.getDefault().findAllProjectTypesWithName(
+                    ProjectTypeConfiguration.PROJECTTYPE__NAME_DEFECT));
             
             final long projectTypeId = !projectTypes.isEmpty() ? projectTypes.get(0).getId() : System.nanoTime();
             ProjectSqlService.getDefault().create(new Project(
@@ -94,7 +85,8 @@ final class ProjectSqlService implements DefaultConfiguration, ProjectConfigurat
         projects.addAll(this.findAllProjectsWithName(PROJECT__TEST_DATA__PROJECT_B));
         if (projects.isEmpty()) {
             final ObservableList<ProjectType> projectTypes = FXCollections.observableArrayList();
-            projectTypes.addAll(SqlProvider.getDefault().findAllProjectTypesWithName(PROJECTTYPE__NAME_PROJECT));
+            projectTypes.addAll(SqlProvider.getDefault().findAllProjectTypesWithName(
+                    ProjectTypeConfiguration.PROJECTTYPE__NAME_PROJECT));
             
             final long projectTypeId = !projectTypes.isEmpty() ? projectTypes.get(0).getId() : System.nanoTime();
             ProjectSqlService.getDefault().create(new Project(
@@ -106,7 +98,8 @@ final class ProjectSqlService implements DefaultConfiguration, ProjectConfigurat
         projects.addAll(this.findAllProjectsWithName(PROJECT__TEST_DATA__PROJECT_C));
         if (projects.isEmpty()) {
             final ObservableList<ProjectType> projectTypes = FXCollections.observableArrayList();
-            projectTypes.addAll(SqlProvider.getDefault().findAllProjectTypesWithName(PROJECTTYPE__NAME_TEMPLATE));
+            projectTypes.addAll(SqlProvider.getDefault().findAllProjectTypesWithName(
+                    ProjectTypeConfiguration.PROJECTTYPE__NAME_TEMPLATE));
             
             final long projectTypeId = !projectTypes.isEmpty() ? projectTypes.get(0).getId() : System.nanoTime();
             ProjectSqlService.getDefault().create(new Project(
@@ -133,7 +126,7 @@ final class ProjectSqlService implements DefaultConfiguration, ProjectConfigurat
         
         final ObservableList<Project> allProjects = FXCollections.observableArrayList();
         final Map<String, Object> parameters = FXCollections.observableHashMap();
-        parameters.put(PROJECTTYPE__COLUMN_NAME__NAME, name);
+        parameters.put(PROJECT__COLUMN_NAME__NAME, name);
         
         final List<Project> projects = DatabaseFacade.getDefault().getCrudService()
                 .findByNamedQuery(Project.class, NAMED_QUERY__NAME__FIND_ALL_WITH_NAME, parameters);
