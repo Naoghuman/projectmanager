@@ -1,12 +1,11 @@
-Welcome to `Project-Manager` with the new release `v0.1.0`.
+Welcome to `Project-Manager` with the new release `v0.1.0-PRERELEASE`.
 
 TODO description
 
 
 
 #### Summary
-* ...
-* ...
+* Create basic project.
 
 
 
