@@ -23,8 +23,9 @@ package com.github.naoghuman.pm.configuration;
  */
 public interface DefaultConfiguration {
     
-    public static final long DEFAULT_ID = -1L;
-    
-    public static final String SIGN__EMPTY = ""; // NOI18N
+    public static final boolean DEFAULT_BOOLEAN = false;
+    public static final long    DEFAULT_ID      = -1L;
+    public static final int     DEFAULT_INDEX   = 0;
+    public static final String  DEFAULT_STRING  = ""; // NOI18N
     
 }

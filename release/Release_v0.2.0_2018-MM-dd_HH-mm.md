@@ -14,6 +14,7 @@ TODO description
 
 
 #### Feature
+#14 Create new entity Board and interface BoardConfiguration.
 
 
 
