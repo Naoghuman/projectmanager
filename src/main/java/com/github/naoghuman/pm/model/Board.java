@@ -34,8 +34,14 @@ import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -46,6 +52,17 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  * @author Naoghuman
  * @since  0.1.0
  */
+@Entity
+@Access(AccessType.PROPERTY)
+@Table(name = BoardConfiguration.ENTITY__TABLE_NAME__BOARD)
+@NamedQueries({
+    @NamedQuery(
+            name  = BoardConfiguration.NAMED_QUERY__NAME__FIND_ALL_ARE_FAVORITE,
+            query = BoardConfiguration.NAMED_QUERY__QUERY__FIND_ALL_ARE_FAVORITE),
+    @NamedQuery(
+            name  = BoardConfiguration.NAMED_QUERY__NAME__FIND_ALL_NOT_FAVORITE,
+            query = BoardConfiguration.NAMED_QUERY__QUERY__FIND_ALL_NOT_FAVORITE)
+})
 public class Board implements 
         Comparable<Board>, Externalizable, 
         DefaultConfiguration, BoardConfiguration
