@@ -231,7 +231,9 @@ public class ApplicationPresenter implements Initializable, ActionConfiguration,
         LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.onnActionShowEmployeer(Employeer)"); // NOI18N
           
         // Set header
-        bHeader.setText("Employeer: " + employeer.getName()); // NOI18N
+        final String fullName = String.format("%s, %s %s", // NOI18N
+                employeer.getLinkIds(), employeer.getFirstName(), employeer.getSecondName());
+        bHeader.setText(String.format("Employeer: %s", fullName)); // NOI18N
         
         // Clear the content
         tbEmployeers.setSelected(false);
@@ -242,7 +244,7 @@ public class ApplicationPresenter implements Initializable, ActionConfiguration,
         LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.onnActionShowProject(Project)"); // NOI18N
           
         // Set header
-        bHeader.setText("Project: " + project.getName()); // NOI18N
+        bHeader.setText(String.format("Project: %s", project.getName())); // NOI18N
         
         // Clear the content
         tbProjects.setSelected(false);
@@ -253,7 +255,7 @@ public class ApplicationPresenter implements Initializable, ActionConfiguration,
         LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.onnActionShowProjectType(ProjectType)"); // NOI18N
           
         // Set header
-        bHeader.setText("Projecttype: " + projectType.getName()); // NOI18N
+        bHeader.setText(String.format("Projecttype: %s", projectType.getName())); // NOI18N
         
         // Clear the content
         tbProjectTypes.setSelected(false);

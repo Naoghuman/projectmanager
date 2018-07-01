@@ -23,15 +23,31 @@ package com.github.naoghuman.pm.configuration;
  */
 public interface EmployeerConfiguration {
     
+    // Table
     public static final String ENTITY__TABLE_NAME__EMPLOYEER = "Employeer"; // NOI18N
     
-    public static final String NAMED_QUERY__NAME__FIND_ALL            = "Employeer.findAll"; // NOI18N
-    public static final String NAMED_QUERY__QUERY__FIND_ALL           = "SELECT e FROM Employeer e"; // NOI18N
-    public static final String NAMED_QUERY__NAME__FIND_ALL_WITH_NAME  = "Employeer.findAllWithName"; // NOI18N
-    public static final String NAMED_QUERY__QUERY__FIND_ALL_WITH_NAME = "SELECT e FROM Employeer e WHERE e.name == :name"; // NOI18N
-    
-    public static final String EMPLOYEER__COLUMN_NAME__GENERATION_TIME = "generationTime"; // NOI18N
-    public static final String EMPLOYEER__COLUMN_NAME__ID              = "id"; // NOI18N
-    public static final String EMPLOYEER__COLUMN_NAME__NAME            = "name"; // NOI18N
+    // Queries
+    public static final String NAMED_QUERY__NAME__FIND_ALL_ARE_FAVORITE  = "Employeer.findAllAreFavorite"; // NOI18N
+    public static final String NAMED_QUERY__QUERY__FIND_ALL_ARE_FAVORITE = "SELECT e FROM Employeer e WERE e.favorite == :favorite"; // NOI18N
+    public static final String NAMED_QUERY__NAME__FIND_ALL_NOT_FAVORITE  = "Employeer.findAllNotFavorite"; // NOI18N
+    public static final String NAMED_QUERY__QUERY__FIND_ALL_NOT_FAVORITE = "SELECT e FROM Employeer e WERE e.favorite != :favorite"; // NOI18N
+
+    // Columns
+    public static final String EMPLOYEER__COLUMN_NAME__EMAILS           = "emails"; // NOI18N
+    public static final String EMPLOYEER__COLUMN_NAME__EMPLOYEER_IDS    = "employeerIds"; // NOI18N
+    public static final String EMPLOYEER__COLUMN_NAME__FAVORITE         = "favorite"; // NOI18N
+    public static final String EMPLOYEER__COLUMN_NAME__FIRST_NAME       = "firstName"; // NOI18N
+    public static final String EMPLOYEER__COLUMN_NAME__GENERATION_TIME  = "generationTime"; // NOI18N
+    public static final String EMPLOYEER__COLUMN_NAME__ICON             = "icon"; // NOI18N
+    public static final String EMPLOYEER__COLUMN_NAME__ID               = "id"; // NOI18N
+    public static final String EMPLOYEER__COLUMN_NAME__INDEX            = "index"; // NOI18N
+    public static final String EMPLOYEER__COLUMN_NAME__LAST_NAME        = "lastName"; // NOI18N
+    public static final String EMPLOYEER__COLUMN_NAME__LINK_IDS         = "linkIds"; // NOI18N
+    public static final String EMPLOYEER__COLUMN_NAME__OFFICE           = "office"; // NOI18N
+    public static final String EMPLOYEER__COLUMN_NAME__PHONES           = "phones"; // NOI18N
+    public static final String EMPLOYEER__COLUMN_NAME__RESPONSIBILITIES = "responsibilities"; // NOI18N
+    public static final String EMPLOYEER__COLUMN_NAME__SECOND_NAME      = "secondName"; // NOI18N
+    public static final String EMPLOYEER__COLUMN_NAME__TAG_IDS          = "tagIds"; // NOI18N
+    public static final String EMPLOYEER__COLUMN_NAME__TITLES           = "titles"; // NOI18N
     
 }

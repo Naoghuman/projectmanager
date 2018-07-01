@@ -61,10 +61,10 @@ public class StartApplication extends Application implements ApplicationConfigur
         PreferencesFacade.getDefault().init(dropPreferencesFileAtStart);
         
         DatabaseFacade.getDefault().register(this.getProperty(KEY__APPLICATION__DATABASE));
-        SqlProvider.getDefault().initialize();
+//        SqlProvider.getDefault().initialize();
         
         // TODO Read property from pom.xml
-        SqlProvider.getDefault().initializeTestData();
+//        SqlProvider.getDefault().initializeTestData();
     }
     
     @Override

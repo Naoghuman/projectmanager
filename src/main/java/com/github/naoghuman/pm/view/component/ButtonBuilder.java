@@ -47,7 +47,10 @@ public final class ButtonBuilder implements ActionConfiguration {
     public Button getButton(final Employeer employeer) {
         LoggerFacade.getDefault().debug(this.getClass(), "ButtonBuilder.getButton(Employeer)"); // NOI18N
         
-        return this.getButton(employeer.getName(), employeer, ON_ACTION__SHOW__EMPLOYEER);
+        final String fullName = String.format("%s, %s %s", // NOI18N
+                employeer.getLinkIds(), employeer.getFirstName(), employeer.getSecondName());
+        
+        return this.getButton(fullName, employeer, ON_ACTION__SHOW__EMPLOYEER);
     }
     
     private Button getButton(final String name, final Object userData, final String actionId) {

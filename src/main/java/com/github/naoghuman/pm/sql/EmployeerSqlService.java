@@ -62,35 +62,35 @@ final class EmployeerSqlService implements DefaultConfiguration, EmployeerConfig
     void initializeTestData() {
         LoggerFacade.getDefault().info(this.getClass(), "EmployeerSqlService.initializeTestData()"); // NOI18N
         
-        final String EMPLOYEER__TEST_DATA__EMPLOYEER_A = "Employeer A"; // NOI18N
-        final String EMPLOYEER__TEST_DATA__EMPLOYEER_B = "Employeer B"; // NOI18N
-        
-        final ObservableList<Employeer> projects = FXCollections.observableArrayList();
-        projects.addAll(this.findAllEmployeersWithName(EMPLOYEER__TEST_DATA__EMPLOYEER_A));
-        if (projects.isEmpty()) {
-            EmployeerSqlService.getDefault().create(new Employeer(
-                    System.nanoTime(), System.nanoTime(),
-                    EMPLOYEER__TEST_DATA__EMPLOYEER_A));
-        }
-        
-        projects.clear();
-        projects.addAll(this.findAllEmployeersWithName(EMPLOYEER__TEST_DATA__EMPLOYEER_B));
-        if (projects.isEmpty()) {
-            EmployeerSqlService.getDefault().create(new Employeer(
-                    System.nanoTime(), System.nanoTime(),
-                    EMPLOYEER__TEST_DATA__EMPLOYEER_B));
-        }
+//        final String EMPLOYEER__TEST_DATA__EMPLOYEER_A = "Employeer A"; // NOI18N
+//        final String EMPLOYEER__TEST_DATA__EMPLOYEER_B = "Employeer B"; // NOI18N
+//        
+//        final ObservableList<Employeer> projects = FXCollections.observableArrayList();
+//        projects.addAll(this.findAllEmployeersWithName(EMPLOYEER__TEST_DATA__EMPLOYEER_A));
+//        if (projects.isEmpty()) {
+//            EmployeerSqlService.getDefault().create(new Employeer(
+//                    System.nanoTime(), System.nanoTime(),
+//                    EMPLOYEER__TEST_DATA__EMPLOYEER_A));
+//        }
+//        
+//        projects.clear();
+//        projects.addAll(this.findAllEmployeersWithName(EMPLOYEER__TEST_DATA__EMPLOYEER_B));
+//        if (projects.isEmpty()) {
+//            EmployeerSqlService.getDefault().create(new Employeer(
+//                    System.nanoTime(), System.nanoTime(),
+//                    EMPLOYEER__TEST_DATA__EMPLOYEER_B));
+//        }
     }
     
     ObservableList<Employeer> findAllEmployeers() {
         LoggerFacade.getDefault().debug(this.getClass(), "EmployeerSqlService.findAllEmployeers(): ObservableList<Employeer>"); // NOI18N
         
         final ObservableList<Employeer> allEmployeers = FXCollections.observableArrayList();
-        final List<Employeer> employeers = DatabaseFacade.getDefault().getCrudService()
-                .findByNamedQuery(Employeer.class, NAMED_QUERY__NAME__FIND_ALL);
-        
-        allEmployeers.addAll(employeers);
-        Collections.sort(allEmployeers);
+//        final List<Employeer> employeers = DatabaseFacade.getDefault().getCrudService()
+//                .findByNamedQuery(Employeer.class, NAMED_QUERY__NAME__FIND_ALL);
+//        
+//        allEmployeers.addAll(employeers);
+//        Collections.sort(allEmployeers);
 
         return allEmployeers;
     }
@@ -99,14 +99,14 @@ final class EmployeerSqlService implements DefaultConfiguration, EmployeerConfig
         LoggerFacade.getDefault().debug(this.getClass(), "EmployeerSqlService.findAllEmployeersWithName(String): ObservableList<Employeer>"); // NOI18N
         
         final ObservableList<Employeer> allEmployeers = FXCollections.observableArrayList();
-        final Map<String, Object> parameters = FXCollections.observableHashMap();
-        parameters.put(EMPLOYEER__COLUMN_NAME__NAME, name);
-        
-        final List<Employeer> employeers = DatabaseFacade.getDefault().getCrudService()
-                .findByNamedQuery(Employeer.class, NAMED_QUERY__NAME__FIND_ALL_WITH_NAME, parameters);
-        
-        allEmployeers.addAll(employeers);
-        Collections.sort(allEmployeers);
+//        final Map<String, Object> parameters = FXCollections.observableHashMap();
+//        parameters.put(EMPLOYEER__COLUMN_NAME__NAME, name);
+//        
+//        final List<Employeer> employeers = DatabaseFacade.getDefault().getCrudService()
+//                .findByNamedQuery(Employeer.class, NAMED_QUERY__NAME__FIND_ALL_WITH_NAME, parameters);
+//        
+//        allEmployeers.addAll(employeers);
+//        Collections.sort(allEmployeers);
 
         return allEmployeers;
     }

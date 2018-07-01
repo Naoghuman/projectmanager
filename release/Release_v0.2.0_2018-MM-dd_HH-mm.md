@@ -15,6 +15,7 @@ TODO description
 
 #### Feature
 #14 Create new entity Board and interface BoardConfiguration.
+#13 Extented the entity Employeer and interface EmployeerConfiguration.
 
 
 

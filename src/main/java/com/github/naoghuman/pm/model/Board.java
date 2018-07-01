@@ -69,32 +69,32 @@ public class Board implements
 {
     public Board() {
         this(
-                DEFAULT_ID, DEFAULT_ID,
-                DEFAULT_STRING, DEFAULT_STRING,
-                0, false,
-                new ArrayList<Long>(), new ArrayList<Long>(),
-                new ArrayList<Long>());
+                DEFAULT_ID,            DEFAULT_ID,            // id,            generationTime
+                DEFAULT_STRING,        DEFAULT_STRING,        // name,          description
+                DEFAULT_INDEX,         DEFAULT_BOOLEAN,       // index,         favorite
+                new ArrayList<Long>(), new ArrayList<Long>(), // employeersIds, tagsIds
+                new ArrayList<Long>());                       // linkIds
     }
     
     public Board(
-            final long id, final long generationTime,
-            final String name, final String description,
-            final int index, final boolean favorite,
+            final long id,                      final long generationTime,
+            final String name,                  final String description,
+            final int index,                    final boolean favorite,
             final ArrayList<Long> employeerIds, final ArrayList<Long> tagIds,
             final ArrayList<Long> linkIds
     ) {
         this.init(
-                id, generationTime,
-                name, description,
-                index, favorite,
+                id,           generationTime,
+                name,         description,
+                index,        favorite,
                 employeerIds, tagIds,
                 linkIds);
     }
     
     private void init(
-            final long id, final long generationTime,
-            final String name, final String description,
-            final int index, final boolean favorite,
+            final long id,                      final long generationTime,
+            final String name,                  final String description,
+            final int index,                    final boolean favorite,
             final ArrayList<Long> employeerIds, final ArrayList<Long> tagIds,
             final ArrayList<Long> linkIds
     ) {
@@ -104,9 +104,9 @@ public class Board implements
         this.setDescription(description);
         this.setIndex(index);
         this.setFavorite(favorite);
-//        this.setEmployeerIds(employeerIds);
-//        this.setTagIds(tagIds);
-//        this.setLinkIds(linkIds);
+        this.setEmployeerIds(employeerIds);
+        this.setTagIds(tagIds);
+        this.setLinkIds(linkIds);
     }
     
     // START  ID ---------------------------------------------------------------
@@ -172,7 +172,7 @@ public class Board implements
     // END  GENERATION-TIME ----------------------------------------------------
     
     // START  NAME -------------------------------------------------------------
-    private StringProperty nameProperty = null;
+    private StringProperty nameProperty;
     private String _name = DEFAULT_STRING;
     
     @Column(name = BOARD__COLUMN_NAME__NAME)
@@ -202,7 +202,7 @@ public class Board implements
     // END  NAME ---------------------------------------------------------------
     
     // START  DESCRIPTION ------------------------------------------------------
-    private StringProperty descriptionProperty = null;
+    private StringProperty descriptionProperty;
     private String _description = DEFAULT_STRING;
     
     @Column(name = BOARD__COLUMN_NAME__DESCRIPTION)
@@ -232,7 +232,7 @@ public class Board implements
     // END  DESCRIPTION --------------------------------------------------------
     
     // START  INDEX ------------------------------------------------------------
-    private IntegerProperty indexProperty = null;
+    private IntegerProperty indexProperty;
     private int _index = DEFAULT_INDEX;
     
     @Column(name = BOARD__COLUMN_NAME__NAME)
@@ -262,7 +262,7 @@ public class Board implements
     // END  INDEX --------------------------------------------------------------
     
     // START  FAVORITE ---------------------------------------------------------
-    private BooleanProperty favoriteProperty = null;
+    private BooleanProperty favoriteProperty;
     private boolean _favorite = DEFAULT_BOOLEAN;
     
     @Column(name = BOARD__COLUMN_NAME__FAVORITE)
@@ -292,8 +292,8 @@ public class Board implements
     // END  FAVORITE -----------------------------------------------------------
     
     // START  EMPLOYEER-IDS ----------------------------------------------------
-    private ListProperty<Long>  employeerIdsProperty = null;
-    private final ArrayList<Long> _employeerIds      = new ArrayList();
+    private ListProperty<Long> employeerIdsProperty;
+    private final ArrayList<Long> _employeerIds = new ArrayList();
     
     @Column(name = BOARD__COLUMN_NAME__EMPLOYEER_IDS)
     public ArrayList<Long> getEmployeerIds() {
@@ -315,7 +315,8 @@ public class Board implements
     
     public ListProperty<Long> employeerIdsProperty() {
         if (employeerIdsProperty == null) {
-            employeerIdsProperty = new SimpleListProperty(this, BOARD__COLUMN_NAME__EMPLOYEER_IDS, FXCollections.observableArrayList(_employeerIds));
+            employeerIdsProperty = new SimpleListProperty(this, BOARD__COLUMN_NAME__EMPLOYEER_IDS, 
+                    FXCollections.observableArrayList(_employeerIds));
         }
         
         return employeerIdsProperty;
@@ -323,8 +324,8 @@ public class Board implements
     // END  EMPLOYEER-IDS ------------------------------------------------------
     
     // START  TAGS-IDS ---------------------------------------------------------
-    private ListProperty<Long>  tagsIdsProperty = null;
-    private final ArrayList<Long> _tagsIds      = new ArrayList();
+    private ListProperty<Long> tagsIdsProperty;
+    private final ArrayList<Long> _tagsIds = new ArrayList();
     
     @Column(name = BOARD__COLUMN_NAME__TAG_IDS)
     public ArrayList<Long> getTagIds() {
@@ -346,7 +347,8 @@ public class Board implements
     
     public ListProperty<Long> tagsIdsProperty() {
         if (tagsIdsProperty == null) {
-            tagsIdsProperty = new SimpleListProperty(this, BOARD__COLUMN_NAME__TAG_IDS, FXCollections.observableArrayList(_tagsIds));
+            tagsIdsProperty = new SimpleListProperty(this, BOARD__COLUMN_NAME__TAG_IDS, 
+                    FXCollections.observableArrayList(_tagsIds));
         }
         
         return tagsIdsProperty;
@@ -354,8 +356,8 @@ public class Board implements
     // END  TAGS-IDS -----------------------------------------------------------
     
     // START  LINKS-IDS --------------------------------------------------------
-    private ListProperty<Long>  linkIdsProperty = null;
-    private final ArrayList<Long> _linkIds      = new ArrayList();
+    private ListProperty<Long> linkIdsProperty;
+    private final ArrayList<Long> _linkIds = new ArrayList();
     
     @Column(name = BOARD__COLUMN_NAME__LINK_IDS)
     public ArrayList<Long> getLinkIds() {
@@ -377,7 +379,8 @@ public class Board implements
     
     public ListProperty<Long> linksIdsProperty() {
         if (linkIdsProperty == null) {
-            linkIdsProperty = new SimpleListProperty(this, BOARD__COLUMN_NAME__LINK_IDS, FXCollections.observableArrayList(_linkIds));
+            linkIdsProperty = new SimpleListProperty(this, BOARD__COLUMN_NAME__LINK_IDS, 
+                    FXCollections.observableArrayList(_linkIds));
         }
         
         return linkIdsProperty;

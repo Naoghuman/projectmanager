@@ -60,7 +60,7 @@ public class Project implements
         DefaultConfiguration, ProjectConfiguration
 {
     public Project() {
-        this(DEFAULT_ID, DEFAULT_ID, SIGN__EMPTY, DEFAULT_ID);
+        this(DEFAULT_ID, DEFAULT_ID, DEFAULT_STRING, DEFAULT_ID);
     }
     
     public Project(final long id, final long generationTime, final String name, final long projectType) {
@@ -138,7 +138,7 @@ public class Project implements
     
     // START  NAME -------------------------------------------------------------
     private StringProperty nameProperty = null;
-    private String _name = SIGN__EMPTY;
+    private String _name = DEFAULT_STRING;
     
     @Column(name = PROJECT__COLUMN_NAME__NAME)
     public String getName() {
@@ -261,7 +261,7 @@ public class Project implements
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         this.setId(in.readLong());
         this.setGenerationTime(in.readLong());
-        this.setName(String.valueOf(in.readLong()));
+        this.setName(String.valueOf(in.readObject()));
         this.setProjectType(in.readLong());
     }
     
