@@ -23,6 +23,7 @@ import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.pm.configuration.ActionConfiguration;
 import com.github.naoghuman.pm.configuration.ApplicationConfiguration;
 import com.github.naoghuman.pm.configuration.BoardConfiguration;
+import static com.github.naoghuman.pm.configuration.DefaultConfiguration.DEFAULT_STRING_NEW;
 import com.github.naoghuman.pm.configuration.NavigationConfiguration;
 import com.github.naoghuman.pm.converter.NavigationConverter;
 import com.github.naoghuman.pm.model.Board;
@@ -166,12 +167,25 @@ public class ApplicationPresenter implements
                 DESKTOP_AREA__SHOW_VIEW_BOARDS__TRUE);
 
         // Load content
-//        final ObservableList<Employeer> employeers = SqlProvider.getDefault().findAllEmployeers();
-//        employeers.stream()
-//                .forEach(employeer -> {
-//                    final Button btn = ButtonBuilder.getDefault().getButton(employeer);
-//                    fpMainArea.getChildren().add(btn);
-//                });
+        /*
+        - load content for Favorites
+        - add content to hbDesktopAreaBoardsFavorites
+        
+        - (v) add new-button to fpDesktopAreaBoardsBoards
+        
+        - load content for Boards
+        - add content to fpDesktopAreaBoardsBoards
+        
+        */
+        
+        // Load all Boards for the section Favorites
+        
+        // Special new-button 
+        final Employeer employeer = ModelProvider.getDefault().getEmployeer();
+        final Button    button    = BoardButtonBuilder.getDefault().getButton(employeer);
+        fpDesktopAreaBoardsBoards.getChildren().add(button);
+        
+        // Load all Boards for the section Boards
     }
     
     private void onActionPrepareDesktopAreaViews(
@@ -216,11 +230,19 @@ public class ApplicationPresenter implements
     private void onActionShowEmployeer(final Employeer employeer) {
         LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.onnActionShowEmployeer(Employeer)"); // NOI18N
           
-        // Set header
-        final String fullName = String.format("%s, %s %s", // NOI18N
-                employeer.getLinkIds(), employeer.getFirstName(), employeer.getSecondName());
-        bDesktopAreaHeader.setText(String.format("Employeer: %s", fullName)); // NOI18N
-
+        // Prepare the DesktopArea views
+        String name = employeer.getLastName();
+        if (!name.equals(DEFAULT_STRING_NEW)) {
+            name = String.format("%s, %s %s", // NOI18N
+                    employeer.getLastName(), employeer.getFirstName(), 
+                    employeer.getSecondName()); 
+        }
+        
+        this.onActionPrepareDesktopAreaViews(
+                NavigationConverter.convert(NAVIGATION__EMPLOYEER, name),
+                DESKTOP_AREA__SHOW_VIEW_BOARD__TRUE, 
+                DESKTOP_AREA__SHOW_VIEW_BOARDS__FALSE);
+        
         // Load content
     }
     

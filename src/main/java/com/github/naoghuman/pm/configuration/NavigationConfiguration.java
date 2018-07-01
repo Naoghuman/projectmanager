@@ -26,6 +26,7 @@ public interface NavigationConfiguration {
     public static final String NAVIGATION__ABOUT      = "About"; // NOI18N
     public static final String NAVIGATION__BOARD      = "Board"; // NOI18N
     public static final String NAVIGATION__BOARDS     = "Boards"; // NOI18N
+    public static final String NAVIGATION__EMPLOYEER  = "Employeer"; // NOI18N
     public static final String NAVIGATION__EMPLOYEERS = "Employeers"; // NOI18N
     public static final String NAVIGATION__EMPTY      = ""; // NOI18N
     public static final String NAVIGATION__FILTER     = "Filter"; // NOI18N

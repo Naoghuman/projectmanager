@@ -14,6 +14,7 @@ TODO description
 
 
 #### Feature
+#21 First Board in DesktopArea/Employeer is special 'New' Board.
 #20 First Board in DesktopArea/Boards is special 'New' Board. 
 #14 Create new entity Board and interface BoardConfiguration.
 

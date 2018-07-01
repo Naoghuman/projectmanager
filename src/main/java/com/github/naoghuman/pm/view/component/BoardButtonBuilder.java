@@ -21,10 +21,9 @@ import com.github.naoghuman.lib.action.core.TransferData;
 import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.pm.configuration.ActionConfiguration;
+import static com.github.naoghuman.pm.configuration.DefaultConfiguration.DEFAULT_STRING_NEW;
 import com.github.naoghuman.pm.model.Board;
 import com.github.naoghuman.pm.model.Employeer;
-import com.github.naoghuman.pm.model.Project;
-import com.github.naoghuman.pm.model.ProjectType;
 import java.util.Optional;
 import javafx.scene.control.Button;
 
@@ -54,10 +53,14 @@ public final class BoardButtonBuilder implements ActionConfiguration {
     public Button getButton(final Employeer employeer) {
         LoggerFacade.getDefault().debug(this.getClass(), "BoardButtonBuilder.getButton(Employeer)"); // NOI18N
         
-        final String fullName = String.format("%s, %s %s", // NOI18N
-                employeer.getLinkIds(), employeer.getFirstName(), employeer.getSecondName());
+        String name = employeer.getLastName();
+        if (!name.equals(DEFAULT_STRING_NEW)) {
+            name = String.format("%s, %s %s", // NOI18N
+                    employeer.getLastName(), employeer.getFirstName(), 
+                    employeer.getSecondName()); 
+        }
         
-        return this.getButton(fullName, employeer, ON_ACTION__SHOW__EMPLOYEER);
+        return this.getButton(name, employeer, ON_ACTION__SHOW__EMPLOYEER);
     }
     
     private Button getButton(final String name, final Object userData, final String actionId) {
@@ -78,17 +81,5 @@ public final class BoardButtonBuilder implements ActionConfiguration {
         
         return btn;
     }
-    
-//    public Button getButton(final Project project) {
-//        LoggerFacade.getDefault().debug(this.getClass(), "BoardButtonBuilder.getButton(Project)"); // NOI18N
-//
-//        return this.getButton(project.getName(), project, ON_ACTION__SHOW__PROJECT);
-//    }
-    
-//    public Button getButton(final ProjectType projectType) {
-//        LoggerFacade.getDefault().debug(this.getClass(), "BoardButtonBuilder.getButton(ProjectType)"); // NOI18N
-//
-//        return this.getButton(projectType.getName(), projectType, ON_ACTION__SHOW__PROJECT_TYPE);
-//    }
     
 }

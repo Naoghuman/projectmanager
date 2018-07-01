@@ -61,4 +61,10 @@ public final class ModelProvider {
                 linkIds);
     }
     
+    public Employeer getEmployeer() {
+        LoggerFacade.getDefault().debug(this.getClass(), "ModelProvider.getEmployeer()"); // NOI18N
+        
+        return new Employeer();
+    }
+    
 }

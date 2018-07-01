@@ -68,13 +68,14 @@ public class Employeer implements
         DefaultConfiguration, EmployeerConfiguration
 {
     public Employeer() {
-        this(DEFAULT_ID,              DEFAULT_ID,              // id,               generationTime
-                DEFAULT_STRING_EMPTY,          DEFAULT_STRING_EMPTY,          // firstName,        secondName
-                DEFAULT_STRING_EMPTY,          new ArrayList<String>(), // lastName,         titles
+        this(
+                DEFAULT_ID,              DEFAULT_ID,              // id,               generationTime
+                DEFAULT_STRING_EMPTY,    DEFAULT_STRING_EMPTY,    // firstName,        secondName
+                DEFAULT_STRING_NEW,      new ArrayList<String>(), // lastName,         titles
                 DEFAULT_INDEX,           DEFAULT_BOOLEAN,         // index,            favorite
                 new ArrayList<String>(), new ArrayList<String>(), // responsibilities, phones
-                new ArrayList<String>(), DEFAULT_STRING_EMPTY,          // emails,           office
-                DEFAULT_STRING_EMPTY,          new ArrayList<Long>(),   // icon,             tagIds
+                new ArrayList<String>(), DEFAULT_STRING_EMPTY,    // emails,           office
+                DEFAULT_STRING_EMPTY,    new ArrayList<Long>(),   // icon,             tagIds
                 new ArrayList<Long>());                           // linkIds
     }
 
