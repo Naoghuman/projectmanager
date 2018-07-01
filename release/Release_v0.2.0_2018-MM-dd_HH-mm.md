@@ -19,6 +19,7 @@ TODO description
 
 
 #### Enhancement
+#18 Extend the layout from DesktopArea/Boards, -/Board.
 #17 Extend the Navigation (add new entries, remove old entries).
 #13 Extented the entity Employeer and interface EmployeerConfiguration.
 

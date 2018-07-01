@@ -24,19 +24,16 @@ import com.github.naoghuman.pm.configuration.ActionConfiguration;
 import com.github.naoghuman.pm.configuration.ApplicationConfiguration;
 import com.github.naoghuman.pm.configuration.NavigationConfiguration;
 import com.github.naoghuman.pm.model.Employeer;
-import com.github.naoghuman.pm.sql.SqlProvider;
-import com.github.naoghuman.pm.view.component.ButtonBuilder;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /**
  *
@@ -47,13 +44,11 @@ public class ApplicationPresenter implements
         Initializable, ActionConfiguration, ApplicationConfiguration, 
         NavigationConfiguration, RegisterActions
 {
-    @FXML private Button       bHeader;
-    @FXML private FlowPane     fpMainArea;
-    @FXML private ToggleButton tbEmployeers;
-    @FXML private ToggleButton tbProjectTypes;
-    @FXML private ToggleButton tbProjects;
-    @FXML private ToggleButton tbTags;
-    @FXML private ToggleGroup  toggleGroup;
+    @FXML private Button   bDesktopAreaHeader;
+    @FXML private FlowPane fpDesktopAreaBoardsBoards;
+    @FXML private HBox     hbDesktopAreaBoardsFavorites;
+    @FXML private VBox     vbDesktopAreaBoard;
+    @FXML private VBox     vbDesktopAreaBoards;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -73,7 +68,7 @@ public class ApplicationPresenter implements
     private void initializeToggleButton() {
         LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.initializeAfterWindowIsShowing()"); // NOI18N
       
-        tbProjects.fire();
+//        tbProjects.fire();
     }
     
     @Override
@@ -106,14 +101,14 @@ public class ApplicationPresenter implements
         LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.onActionClickNavigationBoards()"); // NOI18N
         
         // Set header
-        bHeader.setText(NAVIGATION__BOARDS);
+//        bHeader.setText(NAVIGATION__BOARDS);
     }
     
-    public void onActionClickNavigationEmployeer() {
-        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.onActionClickNavigationEmployeer()"); // NOI18N
+    public void onActionClickNavigationEmployeers() {
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.onActionClickNavigationEmployeers()"); // NOI18N
         
         // Set header
-        bHeader.setText(NAVIGATION__EMPLOYEER);
+//        bDesktopAreaHeader.setText(NAVIGATION__EMPLOYEER);
         
 //        // Clear the content
 //        fpMainArea.getChildren().clear();
@@ -133,11 +128,11 @@ public class ApplicationPresenter implements
         // Set header
         final String fullName = String.format("%s, %s %s", // NOI18N
                 employeer.getLinkIds(), employeer.getFirstName(), employeer.getSecondName());
-        bHeader.setText(String.format("Employeer: %s", fullName)); // NOI18N
+        bDesktopAreaHeader.setText(String.format("Employeer: %s", fullName)); // NOI18N
         
-        // Clear the content
-        tbEmployeers.setSelected(false);
-        fpMainArea.getChildren().clear();
+//        // Clear the content
+//        tbEmployeers.setSelected(false);
+//        fpMainArea.getChildren().clear();
     }
     
 }
