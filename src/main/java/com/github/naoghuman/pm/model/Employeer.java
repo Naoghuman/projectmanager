@@ -68,14 +68,13 @@ public class Employeer implements
         DefaultConfiguration, EmployeerConfiguration
 {
     public Employeer() {
-        this(
-                DEFAULT_ID,              DEFAULT_ID,              // id,               generationTime
-                DEFAULT_STRING,          DEFAULT_STRING,          // firstName,        secondName
-                DEFAULT_STRING,          new ArrayList<String>(), // lastName,         titles
+        this(DEFAULT_ID,              DEFAULT_ID,              // id,               generationTime
+                DEFAULT_STRING_EMPTY,          DEFAULT_STRING_EMPTY,          // firstName,        secondName
+                DEFAULT_STRING_EMPTY,          new ArrayList<String>(), // lastName,         titles
                 DEFAULT_INDEX,           DEFAULT_BOOLEAN,         // index,            favorite
                 new ArrayList<String>(), new ArrayList<String>(), // responsibilities, phones
-                new ArrayList<String>(), DEFAULT_STRING,          // emails,           office
-                DEFAULT_STRING,          new ArrayList<Long>(),   // icon,             tagIds
+                new ArrayList<String>(), DEFAULT_STRING_EMPTY,          // emails,           office
+                DEFAULT_STRING_EMPTY,          new ArrayList<Long>(),   // icon,             tagIds
                 new ArrayList<Long>());                           // linkIds
     }
 
@@ -191,7 +190,7 @@ public class Employeer implements
     
     // START  FIRST-NAME -------------------------------------------------------
     private StringProperty firstNameProperty;
-    private String _firstName = DEFAULT_STRING;
+    private String _firstName = DEFAULT_STRING_EMPTY;
     
     @Column(name = EMPLOYEER__COLUMN_NAME__FIRST_NAME)
     public String getFirstName() {
@@ -221,7 +220,7 @@ public class Employeer implements
     
     // START  SECOND-NAME ------------------------------------------------------
     private StringProperty secondNameProperty;
-    private String _secondName = DEFAULT_STRING;
+    private String _secondName = DEFAULT_STRING_EMPTY;
     
     @Column(name = EMPLOYEER__COLUMN_NAME__SECOND_NAME)
     public String getSecondName() {
@@ -251,7 +250,7 @@ public class Employeer implements
     
     // START  LAST-NAME --------------------------------------------------------
     private StringProperty lastNameProperty;
-    private String _lastName = DEFAULT_STRING;
+    private String _lastName = DEFAULT_STRING_EMPTY;
     
     @Column(name = EMPLOYEER__COLUMN_NAME__SECOND_NAME)
     public String getLastName() {
@@ -469,7 +468,7 @@ public class Employeer implements
     
     // START  OFFICE -----------------------------------------------------------
     private StringProperty officeProperty;
-    private String _office = DEFAULT_STRING;
+    private String _office = DEFAULT_STRING_EMPTY;
     
     @Column(name = EMPLOYEER__COLUMN_NAME__OFFICE)
     public String getOffice() {
@@ -499,7 +498,7 @@ public class Employeer implements
     
     // START  ICON -------------------------------------------------------------
     private StringProperty iconProperty;
-    private String _icon = DEFAULT_STRING;
+    private String _icon = DEFAULT_STRING_EMPTY;
     
     @Column(name = EMPLOYEER__COLUMN_NAME__ICON)
     public String getIcon() {

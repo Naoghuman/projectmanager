@@ -69,10 +69,10 @@ public class StartApplication extends Application implements ApplicationConfigur
     
     @Override
     public void start(Stage primaryStage) throws Exception {
-        final ApplicationView applicationView = new ApplicationView();
-        final ApplicationPresenter applicationPresenter = applicationView.getRealPresenter();
+        final ApplicationView      view      = new ApplicationView();
+        final ApplicationPresenter presenter = view.getRealPresenter();
         
-        final Scene scene = new Scene(applicationView.getView(), 1280, 720);
+        final Scene scene = new Scene(view.getView(), 1280, 720);
         primaryStage.setTitle(this.getProperty(KEY__APPLICATION__TITLE) + this.getProperty(KEY__APPLICATION__VERSION));
         primaryStage.setScene(scene);
         primaryStage.setOnCloseRequest((WindowEvent we) -> {
@@ -82,7 +82,7 @@ public class StartApplication extends Application implements ApplicationConfigur
         });
         
         primaryStage.show();
-        applicationPresenter.initializeAfterWindowIsShowing();
+        presenter.initializeAfterWindowIsShowing();
     }
 
     @Override

@@ -14,19 +14,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.pm.configuration;
+package com.github.naoghuman.pm.converter;
+
+import com.github.naoghuman.lib.logger.core.LoggerFacade;
+import com.github.naoghuman.lib.validation.core.validator.PreConditionValidator;
 
 /**
  *
  * @author Naoghuman
  * @since  0.1.0
  */
-public interface DefaultConfiguration {
+public final class NavigationConverter {
     
-    public static final boolean DEFAULT_BOOLEAN       = false;
-    public static final long    DEFAULT_ID            = -1L;
-    public static final int     DEFAULT_INDEX         = 0;
-    public static final String  DEFAULT_STRING_EMPTY  = ""; // NOI18N
-    public static final String  DEFAULT_STRING_NEW    = "..."; // NOI18N
+    public static String convert(final String navigation, final String name) {
+        LoggerFacade.getDefault().debug(NavigationConverter.class, "NavigationConverter.convert(String, String)"); // NOI18N
+     
+        PreConditionValidator.getDefault().requireNonNullAndNotEmpty(navigation);
+        PreConditionValidator.getDefault().requireNonNullAndNotEmpty(name);
+        
+        return String.format("%s: %s", navigation, name);
+    }
     
 }

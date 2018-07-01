@@ -43,4 +43,10 @@ public interface BoardConfiguration {
     public static final String BOARD__COLUMN_NAME__NAME            = "name"; // NOI18N
     public static final String BOARD__COLUMN_NAME__TAG_IDS         = "tagIds"; // NOI18N
     
+    // DesktopArea views
+    public static final boolean DESKTOP_AREA__SHOW_VIEW_BOARD__FALSE  = false;
+    public static final boolean DESKTOP_AREA__SHOW_VIEW_BOARD__TRUE   = true;
+    public static final boolean DESKTOP_AREA__SHOW_VIEW_BOARDS__FALSE = false;
+    public static final boolean DESKTOP_AREA__SHOW_VIEW_BOARDS__TRUE  = true;
+    
 }

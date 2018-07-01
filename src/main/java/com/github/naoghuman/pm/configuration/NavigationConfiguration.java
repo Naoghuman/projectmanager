@@ -23,15 +23,17 @@ package com.github.naoghuman.pm.configuration;
  */
 public interface NavigationConfiguration {
     
-    public static final String NAVIGATION__ABOUT     = "About"; // NOI18N
-    public static final String NAVIGATION__BOARDS    = "Boards"; // NOI18N
-    public static final String NAVIGATION__EMPLOYEER = "Employeer"; // NOI18N
-    public static final String NAVIGATION__FILTER    = "Filter"; // NOI18N
-    public static final String NAVIGATION__HELP      = "Help"; // NOI18N
-    public static final String NAVIGATION__LINKS     = "Links"; // NOI18N
-    public static final String NAVIGATION__OPTIONS   = "Options"; // NOI18N
-    public static final String NAVIGATION__REPORTS   = "Reports"; // NOI18N
-    public static final String NAVIGATION__SEARCH    = "Search"; // NOI18N
-    public static final String NAVIGATION__TAGS      = "Tags"; // NOI18N
+    public static final String NAVIGATION__ABOUT      = "About"; // NOI18N
+    public static final String NAVIGATION__BOARD      = "Board"; // NOI18N
+    public static final String NAVIGATION__BOARDS     = "Boards"; // NOI18N
+    public static final String NAVIGATION__EMPLOYEERS = "Employeers"; // NOI18N
+    public static final String NAVIGATION__EMPTY      = ""; // NOI18N
+    public static final String NAVIGATION__FILTER     = "Filter"; // NOI18N
+    public static final String NAVIGATION__HELP       = "Help"; // NOI18N
+    public static final String NAVIGATION__LINKS      = "Links"; // NOI18N
+    public static final String NAVIGATION__OPTIONS    = "Options"; // NOI18N
+    public static final String NAVIGATION__REPORTS    = "Reports"; // NOI18N
+    public static final String NAVIGATION__SEARCH     = "Search"; // NOI18N
+    public static final String NAVIGATION__TAGS       = "Tags"; // NOI18N
     
 }

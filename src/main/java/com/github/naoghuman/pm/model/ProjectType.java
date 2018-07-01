@@ -60,7 +60,7 @@ public class ProjectType implements
         DefaultConfiguration, ProjectTypeConfiguration
 {
     public ProjectType() {
-        this(DEFAULT_ID, DEFAULT_STRING, DEFAULT_STRING);
+        this(DEFAULT_ID, DEFAULT_STRING_EMPTY, DEFAULT_STRING_EMPTY);
     }
     
     public ProjectType(final long id, final String name, final String color) {
@@ -106,7 +106,7 @@ public class ProjectType implements
     
     // START  NAME -------------------------------------------------------------
     private StringProperty nameProperty = null;
-    private String _name = DEFAULT_STRING;
+    private String _name = DEFAULT_STRING_EMPTY;
     
     @Column(name = PROJECTTYPE__COLUMN_NAME__NAME)
     public String getName() {
@@ -136,7 +136,7 @@ public class ProjectType implements
     
     // START  COLOR ------------------------------------------------------------
     private StringProperty colorProperty = null;
-    private String _color = DEFAULT_STRING;
+    private String _color = DEFAULT_STRING_EMPTY;
     
     @Column(name = PROJECTTYPE__COLUMN_NAME__COLOR)
     public String getColor() {

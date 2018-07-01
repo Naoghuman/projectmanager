@@ -70,7 +70,7 @@ public class Board implements
     public Board() {
         this(
                 DEFAULT_ID,            DEFAULT_ID,            // id,            generationTime
-                DEFAULT_STRING,        DEFAULT_STRING,        // name,          description
+                DEFAULT_STRING_NEW,    DEFAULT_STRING_EMPTY,  // name,          description
                 DEFAULT_INDEX,         DEFAULT_BOOLEAN,       // index,         favorite
                 new ArrayList<Long>(), new ArrayList<Long>(), // employeersIds, tagsIds
                 new ArrayList<Long>());                       // linkIds
@@ -173,7 +173,7 @@ public class Board implements
     
     // START  NAME -------------------------------------------------------------
     private StringProperty nameProperty;
-    private String _name = DEFAULT_STRING;
+    private String _name = DEFAULT_STRING_EMPTY;
     
     @Column(name = BOARD__COLUMN_NAME__NAME)
     public String getName() {
@@ -203,7 +203,7 @@ public class Board implements
     
     // START  DESCRIPTION ------------------------------------------------------
     private StringProperty descriptionProperty;
-    private String _description = DEFAULT_STRING;
+    private String _description = DEFAULT_STRING_EMPTY;
     
     @Column(name = BOARD__COLUMN_NAME__DESCRIPTION)
     public String getDescription() {

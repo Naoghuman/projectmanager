@@ -23,6 +23,7 @@ package com.github.naoghuman.pm.configuration;
  */
 public interface ActionConfiguration {
 
+    public static final String ON_ACTION__SHOW__BOARD        = "ON_ACTION__SHOW__BOARD"; // NOI18N
     public static final String ON_ACTION__SHOW__EMPLOYEER    = "ON_ACTION__SHOW__EMPLOYEER"; // NOI18N
     public static final String ON_ACTION__SHOW__PROJECT      = "ON_ACTION__SHOW__PROJECT"; // NOI18N
     public static final String ON_ACTION__SHOW__PROJECT_TYPE = "ON_ACTION__SHOW__PROJECT_TYPE"; // NOI18N

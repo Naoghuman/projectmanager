@@ -60,7 +60,7 @@ public class Project implements
         DefaultConfiguration, ProjectConfiguration
 {
     public Project() {
-        this(DEFAULT_ID, DEFAULT_ID, DEFAULT_STRING, DEFAULT_ID);
+        this(DEFAULT_ID, DEFAULT_ID, DEFAULT_STRING_EMPTY, DEFAULT_ID);
     }
     
     public Project(final long id, final long generationTime, final String name, final long projectType) {
@@ -138,7 +138,7 @@ public class Project implements
     
     // START  NAME -------------------------------------------------------------
     private StringProperty nameProperty = null;
-    private String _name = DEFAULT_STRING;
+    private String _name = DEFAULT_STRING_EMPTY;
     
     @Column(name = PROJECT__COLUMN_NAME__NAME)
     public String getName() {

@@ -22,8 +22,13 @@ import com.github.naoghuman.lib.action.core.TransferData;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.pm.configuration.ActionConfiguration;
 import com.github.naoghuman.pm.configuration.ApplicationConfiguration;
+import com.github.naoghuman.pm.configuration.BoardConfiguration;
 import com.github.naoghuman.pm.configuration.NavigationConfiguration;
+import com.github.naoghuman.pm.converter.NavigationConverter;
+import com.github.naoghuman.pm.model.Board;
 import com.github.naoghuman.pm.model.Employeer;
+import com.github.naoghuman.pm.model.ModelProvider;
+import com.github.naoghuman.pm.view.component.BoardButtonBuilder;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -42,7 +47,7 @@ import javafx.scene.layout.VBox;
  */
 public class ApplicationPresenter implements 
         Initializable, ActionConfiguration, ApplicationConfiguration, 
-        NavigationConfiguration, RegisterActions
+        BoardConfiguration, NavigationConfiguration, RegisterActions
 {
     @FXML private Button   bDesktopAreaHeader;
     @FXML private FlowPane fpDesktopAreaBoardsBoards;
@@ -56,7 +61,7 @@ public class ApplicationPresenter implements
         
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'application.fxml'."; // NOI18N
         
-        this.initializeToggleButton();
+        this.initializeDesktopArea();
 
         this.register();
     }
@@ -65,17 +70,40 @@ public class ApplicationPresenter implements
         LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.initializeAfterWindowIsShowing()"); // NOI18N
     }
     
-    private void initializeToggleButton() {
-        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.initializeAfterWindowIsShowing()"); // NOI18N
+    private void initializeDesktopArea() {
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.initializeDesktopArea()"); // NOI18N
       
-//        tbProjects.fire();
+        // Prepare the DesktopArea views
+        this.onActionPrepareDesktopAreaViews(
+                NAVIGATION__EMPTY, 
+                DESKTOP_AREA__SHOW_VIEW_BOARD__FALSE, 
+                DESKTOP_AREA__SHOW_VIEW_BOARDS__FALSE);
     }
     
     @Override
     public void register() {
         LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.register()"); // NOI18N
         
+        this.registerOnActionShowBoard();
         this.registerOnActionShowEmployeer();
+    }
+    
+    private void registerOnActionShowBoard() {
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.registerOnActionShowBoard()"); // NOI18N
+        
+        ActionHandlerFacade.getDefault().register(
+                ON_ACTION__SHOW__BOARD,
+                (ActionEvent event) -> {
+                    final Object source = event.getSource();
+                    if (source instanceof TransferData) {
+                        final TransferData     transferData = (TransferData) source;
+                        final Optional<Object> optional     = transferData.getObject();
+                        if(optional.isPresent() && optional.get() instanceof Board) {
+                            final Board board = (Board) optional.get();
+                            this.onActionShowBoard(board);
+                        }
+                    }
+                });
     }
     
     private void registerOnActionShowEmployeer() {
@@ -100,26 +128,89 @@ public class ApplicationPresenter implements
     public void onActionClickNavigationBoards() {
         LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.onActionClickNavigationBoards()"); // NOI18N
         
-        // Set header
-//        bHeader.setText(NAVIGATION__BOARDS);
+        // Prepare the DesktopArea views
+        this.onActionPrepareDesktopAreaViews(
+                NAVIGATION__BOARDS, 
+                DESKTOP_AREA__SHOW_VIEW_BOARD__FALSE, 
+                DESKTOP_AREA__SHOW_VIEW_BOARDS__TRUE);
+
+        // Load content
+        /*
+        - load content for Favorites
+        - add content to hbDesktopAreaBoardsFavorites
+        
+        - (v) add new-button to fpDesktopAreaBoardsBoards
+        
+        - load content for Boards
+        - add content to fpDesktopAreaBoardsBoards
+        
+        */
+        
+        // Load all Boards for the section Favorites
+        
+        // Special new-button 
+        final Board  board  = ModelProvider.getDefault().getBoard();
+        final Button button = BoardButtonBuilder.getDefault().getButton(board);
+        fpDesktopAreaBoardsBoards.getChildren().add(button);
+        
+        // Load all Boards for the section Boards
     }
     
     public void onActionClickNavigationEmployeers() {
         LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.onActionClickNavigationEmployeers()"); // NOI18N
         
-        // Set header
-//        bDesktopAreaHeader.setText(NAVIGATION__EMPLOYEER);
-        
-//        // Clear the content
-//        fpMainArea.getChildren().clear();
-//        
-//        // Load new content
+        // Prepare the DesktopArea views
+        this.onActionPrepareDesktopAreaViews(
+                NAVIGATION__EMPLOYEERS, 
+                DESKTOP_AREA__SHOW_VIEW_BOARD__FALSE,
+                DESKTOP_AREA__SHOW_VIEW_BOARDS__TRUE);
+
+        // Load content
 //        final ObservableList<Employeer> employeers = SqlProvider.getDefault().findAllEmployeers();
 //        employeers.stream()
 //                .forEach(employeer -> {
 //                    final Button btn = ButtonBuilder.getDefault().getButton(employeer);
 //                    fpMainArea.getChildren().add(btn);
 //                });
+    }
+    
+    private void onActionPrepareDesktopAreaViews(
+            final String title, final boolean showDesktopAreaViewBoard,
+            final boolean showDesktopAreaViewBoards
+    ) {
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.onActionPrepareDesktopAreaViews(String, boolean, boolean)"); // NOI18N
+        
+        // Show header text
+        bDesktopAreaHeader.setText(title);
+        
+        // Tweak the layout
+        vbDesktopAreaBoard.setVisible(showDesktopAreaViewBoard);
+        vbDesktopAreaBoard.setManaged(showDesktopAreaViewBoard);
+        
+        vbDesktopAreaBoards.setVisible(showDesktopAreaViewBoards);
+        vbDesktopAreaBoards.setManaged(showDesktopAreaViewBoards);
+        
+        // Cleanup previous content
+        if (showDesktopAreaViewBoard) {
+            vbDesktopAreaBoard.getChildren().clear();
+        }
+        
+        if (showDesktopAreaViewBoards) {
+            hbDesktopAreaBoardsFavorites.getChildren().clear();
+            fpDesktopAreaBoardsBoards.getChildren().clear();
+        }
+    }
+    
+    private void onActionShowBoard(final Board board) {
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.onActionShowBoard(Board)"); // NOI18N
+        
+        // Prepare the DesktopArea views
+        this.onActionPrepareDesktopAreaViews(
+                NavigationConverter.convert(NAVIGATION__BOARD, board.getName()),
+                DESKTOP_AREA__SHOW_VIEW_BOARD__TRUE, 
+                DESKTOP_AREA__SHOW_VIEW_BOARDS__FALSE);
+        
+        // Load content
     }
 
     private void onActionShowEmployeer(final Employeer employeer) {
@@ -129,10 +220,8 @@ public class ApplicationPresenter implements
         final String fullName = String.format("%s, %s %s", // NOI18N
                 employeer.getLinkIds(), employeer.getFirstName(), employeer.getSecondName());
         bDesktopAreaHeader.setText(String.format("Employeer: %s", fullName)); // NOI18N
-        
-//        // Clear the content
-//        tbEmployeers.setSelected(false);
-//        fpMainArea.getChildren().clear();
+
+        // Load content
     }
     
 }

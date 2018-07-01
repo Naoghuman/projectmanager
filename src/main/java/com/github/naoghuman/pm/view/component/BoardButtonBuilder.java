@@ -21,6 +21,7 @@ import com.github.naoghuman.lib.action.core.TransferData;
 import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.pm.configuration.ActionConfiguration;
+import com.github.naoghuman.pm.model.Board;
 import com.github.naoghuman.pm.model.Employeer;
 import com.github.naoghuman.pm.model.Project;
 import com.github.naoghuman.pm.model.ProjectType;
@@ -32,20 +33,26 @@ import javafx.scene.control.Button;
  * @author Naoghuman
  * @since  0.1.0
  */
-public final class ButtonBuilder implements ActionConfiguration {
+public final class BoardButtonBuilder implements ActionConfiguration {
     
-    private static final Optional<ButtonBuilder> INSTANCE = Optional.of(new ButtonBuilder());
+    private static final Optional<BoardButtonBuilder> INSTANCE = Optional.of(new BoardButtonBuilder());
 
-    public static final ButtonBuilder getDefault() {
+    public static final BoardButtonBuilder getDefault() {
         return INSTANCE.get();
     }
     
-    private ButtonBuilder() {
+    private BoardButtonBuilder() {
         
     }
     
+    public Button getButton(final Board board) {
+        LoggerFacade.getDefault().debug(this.getClass(), "BoardButtonBuilder.getButton(Board)"); // NOI18N
+        
+        return this.getButton(board.getName(), board, ON_ACTION__SHOW__BOARD);
+    }
+    
     public Button getButton(final Employeer employeer) {
-        LoggerFacade.getDefault().debug(this.getClass(), "ButtonBuilder.getButton(Employeer)"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "BoardButtonBuilder.getButton(Employeer)"); // NOI18N
         
         final String fullName = String.format("%s, %s %s", // NOI18N
                 employeer.getLinkIds(), employeer.getFirstName(), employeer.getSecondName());
@@ -54,7 +61,7 @@ public final class ButtonBuilder implements ActionConfiguration {
     }
     
     private Button getButton(final String name, final Object userData, final String actionId) {
-        LoggerFacade.getDefault().debug(this.getClass(), "ButtonBuilder.getButton(String, Object, String)"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "BoardButtonBuilder.getButton(String, Object, String)"); // NOI18N
         
         final Button btn = new Button();
         btn.setPrefSize(256.0d, 128.0d);
@@ -72,16 +79,16 @@ public final class ButtonBuilder implements ActionConfiguration {
         return btn;
     }
     
-    public Button getButton(final Project project) {
-        LoggerFacade.getDefault().debug(this.getClass(), "ButtonBuilder.getButton(Project)"); // NOI18N
-
-        return this.getButton(project.getName(), project, ON_ACTION__SHOW__PROJECT);
-    }
+//    public Button getButton(final Project project) {
+//        LoggerFacade.getDefault().debug(this.getClass(), "BoardButtonBuilder.getButton(Project)"); // NOI18N
+//
+//        return this.getButton(project.getName(), project, ON_ACTION__SHOW__PROJECT);
+//    }
     
-    public Button getButton(final ProjectType projectType) {
-        LoggerFacade.getDefault().debug(this.getClass(), "ButtonBuilder.getButton(ProjectType)"); // NOI18N
-
-        return this.getButton(projectType.getName(), projectType, ON_ACTION__SHOW__PROJECT_TYPE);
-    }
+//    public Button getButton(final ProjectType projectType) {
+//        LoggerFacade.getDefault().debug(this.getClass(), "BoardButtonBuilder.getButton(ProjectType)"); // NOI18N
+//
+//        return this.getButton(projectType.getName(), projectType, ON_ACTION__SHOW__PROJECT_TYPE);
+//    }
     
 }
