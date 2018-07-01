@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Naoghuman
+ * Copyright (C) 2018 Naoghuman
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,10 +35,5 @@ public interface ApplicationConfiguration {
     public static final String KEY__APPLICATION__RESOURCE_BUNDLE = "/com/github/naoghuman/pm/application/application.properties"; // NOI18N
     public static final String KEY__APPLICATION__TITLE           = "application.title"; // NOI18N
     public static final String KEY__APPLICATION__VERSION         = "application.version"; // NOI18N
-    
-    public static final String MAIN_PAGE__EMPLOYEER     = "Employeer"; // NOI18N
-    public static final String MAIN_PAGE__PROJECTS      = "Projects"; // NOI18N
-    public static final String MAIN_PAGE__PROJECT_TYPES = "Projecttypes"; // NOI18N
-    public static final String MAIN_PAGE__TAGS          = "Tags"; // NOI18N
     
 }
