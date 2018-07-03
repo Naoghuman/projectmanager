@@ -14,20 +14,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.pm.configuration;
+package com.github.naoghuman.pm.view.board;
+
+import com.airhacks.afterburner.views.FXMLView;
 
 /**
  *
  * @author Naoghuman
  * @since  0.1.0
  */
-public interface ActionConfiguration {
-
-    public static final String ON_ACTION__REFRESH__DESKTOP_AREA_BOARDS = "ON_ACTION__REFRESH__DESKTOP_AREA_BOARDS"; // NOI18N
+public class BoardView extends FXMLView {
     
-    public static final String ON_ACTION__SHOW__BOARD        = "ON_ACTION__SHOW__BOARD"; // NOI18N
-    public static final String ON_ACTION__SHOW__EMPLOYEER    = "ON_ACTION__SHOW__EMPLOYEER"; // NOI18N
-    public static final String ON_ACTION__SHOW__PROJECT      = "ON_ACTION__SHOW__PROJECT"; // NOI18N
-    public static final String ON_ACTION__SHOW__PROJECT_TYPE = "ON_ACTION__SHOW__PROJECT_TYPE"; // NOI18N
+    public BoardPresenter getRealPresenter() {
+        return (BoardPresenter) super.getPresenter();
+    }
     
 }

@@ -37,13 +37,13 @@ public final class ModelProvider {
         
     }
     
-    public Board getBoard() {
+    public BoardModel getBoard() {
         LoggerFacade.getDefault().debug(this.getClass(), "ModelProvider.getBoard()"); // NOI18N
         
-        return new Board();
+        return new BoardModel();
     }
     
-    public Board getBoard(
+    public BoardModel getBoard(
             final long id,                      final long generationTime,
             final String name,                  final String description,
             final int index,                    final boolean favorite,
@@ -53,7 +53,7 @@ public final class ModelProvider {
         LoggerFacade.getDefault().debug(this.getClass(), "ModelProvider.getBoard(" // NOI18N
                 + "long, long, String, String, int, boolean, ArrayList<Long>, ArrayList<Long>, ArrayList<Long>)"); // NOI18N
         
-        return new Board(
+        return new BoardModel(
                 id,           generationTime,
                 name,         description,
                 index,        favorite,

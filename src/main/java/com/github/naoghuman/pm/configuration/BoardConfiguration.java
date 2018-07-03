@@ -27,11 +27,9 @@ public interface BoardConfiguration {
     public static final String ENTITY__TABLE_NAME__BOARD = "Board"; // NOI18N
     
     // Queries
-    public static final String NAMED_QUERY__NAME__FIND_ALL_ARE_FAVORITE  = "Board.findAllAreFavorite"; // NOI18N
-    public static final String NAMED_QUERY__QUERY__FIND_ALL_ARE_FAVORITE = "SELECT b FROM Board b WERE b.favorite == :favorite"; // NOI18N
-    public static final String NAMED_QUERY__NAME__FIND_ALL_NOT_FAVORITE  = "Board.findAllNotFavorite"; // NOI18N
-    public static final String NAMED_QUERY__QUERY__FIND_ALL_NOT_FAVORITE = "SELECT b FROM Board b WERE b.favorite != :favorite"; // NOI18N
-
+    public static final String NAMED_QUERY__NAME__FIND_ALL__FAVORITES  = "Board.findAllFavorites"; // NOI18N
+    public static final String NAMED_QUERY__QUERY__FIND_ALL__FAVORITES = "SELECT b FROM Board b WHERE b.favorite == :favorite"; // NOI18N
+    
     // Columns
     public static final String BOARD__COLUMN_NAME__DESCRIPTION     = "description"; // NOI18N
     public static final String BOARD__COLUMN_NAME__EMPLOYEER_IDS   = "employeerIds"; // NOI18N
@@ -42,6 +40,10 @@ public interface BoardConfiguration {
     public static final String BOARD__COLUMN_NAME__LINK_IDS        = "linkIds"; // NOI18N
     public static final String BOARD__COLUMN_NAME__NAME            = "name"; // NOI18N
     public static final String BOARD__COLUMN_NAME__TAG_IDS         = "tagIds"; // NOI18N
+    
+    // Boards Favorites
+    public static final boolean DESKTOP_AREA__LOAD_FAVORITES__FALSE = false;
+    public static final boolean DESKTOP_AREA__LOAD_FAVORITES__TRUE  = true;
     
     // DesktopArea views
     public static final boolean DESKTOP_AREA__SHOW_VIEW_BOARD__FALSE  = false;

@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.pm.view.component;
+package com.github.naoghuman.pm.view;
 
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.TransferData;
@@ -22,10 +22,16 @@ import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.pm.configuration.ActionConfiguration;
 import static com.github.naoghuman.pm.configuration.DefaultConfiguration.DEFAULT_STRING_NEW;
-import com.github.naoghuman.pm.model.Board;
+import com.github.naoghuman.pm.model.BoardModel;
 import com.github.naoghuman.pm.model.Employeer;
+import com.github.naoghuman.pm.sql.SqlProvider;
 import java.util.Optional;
+import javafx.animation.PauseTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 
 /**
  *
@@ -44,7 +50,7 @@ public final class BoardButtonBuilder implements ActionConfiguration {
         
     }
     
-    public Button getButton(final Board board) {
+    public Button getButton(final BoardModel board) {
         LoggerFacade.getDefault().debug(this.getClass(), "BoardButtonBuilder.getButton(Board)"); // NOI18N
         
         return this.getButton(board.getName(), board, ON_ACTION__SHOW__BOARD);
@@ -80,6 +86,55 @@ public final class BoardButtonBuilder implements ActionConfiguration {
         });
         
         return btn;
+    }
+
+    public ObservableList<HBox> getButtons(ObservableList<BoardModel> boards) {
+        final ObservableList<HBox> buttons = FXCollections.observableArrayList();
+        
+        boards.stream()
+                .map((board) -> {
+                    final HBox hbox = new HBox();
+                    final Button btn1 = this.getButton(board);
+                    hbox.getChildren().add(btn1);
+                    
+                    final Button btn2 = new Button();
+                    btn2.setText("(v)");
+                    btn2.setOnAction((event) -> {
+                        SqlProvider.getDefault().updateBoardFavorite(board);
+                        
+                        final PauseTransition pt = new PauseTransition();
+                        pt.setDuration(Duration.millis(15));
+                        pt.setCycleCount(1);
+                        pt.setOnFinished((finished) -> {
+                            ActionHandlerFacade.getDefault().handle(ON_ACTION__REFRESH__DESKTOP_AREA_BOARDS);
+                        });
+                        
+                        pt.playFromStart();
+                    });
+                    hbox.getChildren().add(btn2);
+                    
+                    final Button btn3 = new Button();
+                    btn3.setText("(x)");
+                    btn3.setOnAction((event) -> {
+                        SqlProvider.getDefault().deleteBoard(board);
+                        
+                        final PauseTransition pt = new PauseTransition();
+                        pt.setDuration(Duration.millis(15));
+                        pt.setCycleCount(1);
+                        pt.setOnFinished((finished) -> {
+                            ActionHandlerFacade.getDefault().handle(ON_ACTION__REFRESH__DESKTOP_AREA_BOARDS);
+                        });
+                        
+                        pt.playFromStart();
+                    });
+                    hbox.getChildren().add(btn3);
+                    
+                    return hbox;
+                }).forEachOrdered((hbox) -> {
+                    buttons.add(hbox);
+                });
+        
+        return buttons;
     }
     
 }

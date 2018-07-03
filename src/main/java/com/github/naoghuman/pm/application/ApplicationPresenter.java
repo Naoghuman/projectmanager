@@ -26,19 +26,25 @@ import com.github.naoghuman.pm.configuration.BoardConfiguration;
 import static com.github.naoghuman.pm.configuration.DefaultConfiguration.DEFAULT_STRING_NEW;
 import com.github.naoghuman.pm.configuration.NavigationConfiguration;
 import com.github.naoghuman.pm.converter.NavigationConverter;
-import com.github.naoghuman.pm.model.Board;
+import com.github.naoghuman.pm.model.BoardModel;
 import com.github.naoghuman.pm.model.Employeer;
 import com.github.naoghuman.pm.model.ModelProvider;
-import com.github.naoghuman.pm.view.component.BoardButtonBuilder;
+import com.github.naoghuman.pm.sql.SqlProvider;
+import com.github.naoghuman.pm.view.BoardButtonBuilder;
+import com.github.naoghuman.pm.view.board.BoardPresenter;
+import com.github.naoghuman.pm.view.board.BoardView;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 /**
@@ -81,50 +87,6 @@ public class ApplicationPresenter implements
                 DESKTOP_AREA__SHOW_VIEW_BOARDS__FALSE);
     }
     
-    @Override
-    public void register() {
-        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.register()"); // NOI18N
-        
-        this.registerOnActionShowBoard();
-        this.registerOnActionShowEmployeer();
-    }
-    
-    private void registerOnActionShowBoard() {
-        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.registerOnActionShowBoard()"); // NOI18N
-        
-        ActionHandlerFacade.getDefault().register(
-                ON_ACTION__SHOW__BOARD,
-                (ActionEvent event) -> {
-                    final Object source = event.getSource();
-                    if (source instanceof TransferData) {
-                        final TransferData     transferData = (TransferData) source;
-                        final Optional<Object> optional     = transferData.getObject();
-                        if(optional.isPresent() && optional.get() instanceof Board) {
-                            final Board board = (Board) optional.get();
-                            this.onActionShowBoard(board);
-                        }
-                    }
-                });
-    }
-    
-    private void registerOnActionShowEmployeer() {
-        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.registerOnActionShowEmployeer()"); // NOI18N
-        
-        ActionHandlerFacade.getDefault().register(
-                ON_ACTION__SHOW__EMPLOYEER,
-                (ActionEvent event) -> {
-                    final Object source = event.getSource();
-                    if (source instanceof TransferData) {
-                        final TransferData     transferData = (TransferData) source;
-                        final Optional<Object> optional     = transferData.getObject();
-                        if(optional.isPresent() && optional.get() instanceof Employeer) {
-                            final Employeer employeer = (Employeer) optional.get();
-                            this.onActionShowEmployeer(employeer);
-                        }
-                    }
-                });
-    }
-    
     
     public void onActionClickNavigationBoards() {
         LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.onActionClickNavigationBoards()"); // NOI18N
@@ -136,25 +98,20 @@ public class ApplicationPresenter implements
                 DESKTOP_AREA__SHOW_VIEW_BOARDS__TRUE);
 
         // Load content
-        /*
-        - load content for Favorites
-        - add content to hbDesktopAreaBoardsFavorites
-        
-        - (v) add new-button to fpDesktopAreaBoardsBoards
-        
-        - load content for Boards
-        - add content to fpDesktopAreaBoardsBoards
-        
-        */
-        
         // Load all Boards for the section Favorites
+        final ObservableList<BoardModel> favorites       = SqlProvider.getDefault().findAllBoardsFavorites(DESKTOP_AREA__LOAD_FAVORITES__TRUE);
+        final ObservableList<HBox>       favoriteButtons = BoardButtonBuilder.getDefault().getButtons(favorites);
+        hbDesktopAreaBoardsFavorites.getChildren().addAll(favoriteButtons);
         
         // Special new-button 
-        final Board  board  = ModelProvider.getDefault().getBoard();
+        final BoardModel  board  = ModelProvider.getDefault().getBoard();
         final Button button = BoardButtonBuilder.getDefault().getButton(board);
         fpDesktopAreaBoardsBoards.getChildren().add(button);
         
         // Load all Boards for the section Boards
+        final ObservableList<BoardModel> boards       = SqlProvider.getDefault().findAllBoardsFavorites(DESKTOP_AREA__LOAD_FAVORITES__FALSE);
+        final ObservableList<HBox>       boardButtons = BoardButtonBuilder.getDefault().getButtons(boards);
+        fpDesktopAreaBoardsBoards.getChildren().addAll(boardButtons);
     }
     
     public void onActionClickNavigationEmployeers() {
@@ -215,7 +172,12 @@ public class ApplicationPresenter implements
         }
     }
     
-    private void onActionShowBoard(final Board board) {
+    private void onActionRefreshDesktopAreaBoards() {
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.onActionRefreshDesktopAreaBoards()"); // NOI18N
+        
+    }
+    
+    private void onActionShowBoard(final BoardModel board) {
         LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.onActionShowBoard(Board)"); // NOI18N
         
         // Prepare the DesktopArea views
@@ -225,6 +187,13 @@ public class ApplicationPresenter implements
                 DESKTOP_AREA__SHOW_VIEW_BOARDS__FALSE);
         
         // Load content
+        final BoardView      view      = new BoardView();
+        final BoardPresenter presenter = view.getRealPresenter();
+        presenter.configure(board);
+        
+        final Parent parent = view.getView();
+        VBox.setVgrow(parent, Priority.ALWAYS);
+        vbDesktopAreaBoard.getChildren().add(parent);
     }
 
     private void onActionShowEmployeer(final Employeer employeer) {
@@ -244,6 +213,61 @@ public class ApplicationPresenter implements
                 DESKTOP_AREA__SHOW_VIEW_BOARDS__FALSE);
         
         // Load content
+    }
+    
+    @Override
+    public void register() {
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.register()"); // NOI18N
+        
+        this.registerOnActionRefreshDesktopAreaBoards();
+        this.registerOnActionShowBoard();
+        this.registerOnActionShowEmployeer();
+    }
+    
+    private void registerOnActionRefreshDesktopAreaBoards() {
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.registerOnActionRefreshDesktopAreaBoards()"); // NOI18N
+        
+        ActionHandlerFacade.getDefault().register(
+                ON_ACTION__REFRESH__DESKTOP_AREA_BOARDS,
+                (ActionEvent event) -> {
+                    this.onActionClickNavigationBoards();
+                });
+    }
+    
+    private void registerOnActionShowBoard() {
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.registerOnActionShowBoard()"); // NOI18N
+        
+        ActionHandlerFacade.getDefault().register(
+                ON_ACTION__SHOW__BOARD,
+                (ActionEvent event) -> {
+                    final Object source = event.getSource();
+                    if (source instanceof TransferData) {
+                        final TransferData     transferData = (TransferData) source;
+                        final Optional<Object> optional     = transferData.getObject();
+                        if(optional.isPresent() && optional.get() instanceof BoardModel) {
+                            final BoardModel board = (BoardModel) optional.get();
+                            this.onActionShowBoard(board);
+                        }
+                    }
+                });
+    }
+    
+    private void registerOnActionShowEmployeer() {
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.registerOnActionShowEmployeer()"); // NOI18N
+        
+        ActionHandlerFacade.getDefault().register(
+                ON_ACTION__SHOW__EMPLOYEER,
+                (ActionEvent event) -> {
+                    final Object source = event.getSource();
+                    if (source instanceof TransferData) {
+                        final TransferData     transferData = (TransferData) source;
+                        final Optional<Object> optional     = transferData.getObject();
+                        if(optional.isPresent() && optional.get() instanceof Employeer) {
+                            final Employeer employeer = (Employeer) optional.get();
+                            this.onActionShowEmployeer(employeer);
+                        }
+                    }
+                });
     }
     
 }

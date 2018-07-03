@@ -14,6 +14,7 @@ TODO description
 
 
 #### Feature
+#23 Implement CRUD operations for the entity Board.
 #21 First Board in DesktopArea/Employeer is special 'New' Board.
 #20 First Board in DesktopArea/Boards is special 'New' Board. 
 #14 Create new entity Board and interface BoardConfiguration.

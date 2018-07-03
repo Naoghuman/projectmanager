@@ -52,22 +52,19 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  * @author Naoghuman
  * @since  0.1.0
  */
-@Entity
+@Entity(name = BoardConfiguration.ENTITY__TABLE_NAME__BOARD)
 @Access(AccessType.PROPERTY)
 @Table(name = BoardConfiguration.ENTITY__TABLE_NAME__BOARD)
 @NamedQueries({
     @NamedQuery(
-            name  = BoardConfiguration.NAMED_QUERY__NAME__FIND_ALL_ARE_FAVORITE,
-            query = BoardConfiguration.NAMED_QUERY__QUERY__FIND_ALL_ARE_FAVORITE),
-    @NamedQuery(
-            name  = BoardConfiguration.NAMED_QUERY__NAME__FIND_ALL_NOT_FAVORITE,
-            query = BoardConfiguration.NAMED_QUERY__QUERY__FIND_ALL_NOT_FAVORITE)
+            name  = BoardConfiguration.NAMED_QUERY__NAME__FIND_ALL__FAVORITES,
+            query = BoardConfiguration.NAMED_QUERY__QUERY__FIND_ALL__FAVORITES)
 })
-public class Board implements 
-        Comparable<Board>, Externalizable, 
+public class BoardModel implements 
+        Comparable<BoardModel>, Externalizable, 
         DefaultConfiguration, BoardConfiguration
 {
-    public Board() {
+    public BoardModel() {
         this(
                 DEFAULT_ID,            DEFAULT_ID,            // id,            generationTime
                 DEFAULT_STRING_NEW,    DEFAULT_STRING_EMPTY,  // name,          description
@@ -76,7 +73,7 @@ public class Board implements
                 new ArrayList<Long>());                       // linkIds
     }
     
-    public Board(
+    public BoardModel(
             final long id,                      final long generationTime,
             final String name,                  final String description,
             final int index,                    final boolean favorite,
@@ -388,7 +385,7 @@ public class Board implements
     // END  LINKS-IDS ----------------------------------------------------------
 
     @Override
-    public int compareTo(final Board other) {
+    public int compareTo(final BoardModel other) {
         return new CompareToBuilder()
                 .append(this.getIndex(),          other.getIndex())
                 .append(this.getId(),             other.getId())
@@ -410,7 +407,7 @@ public class Board implements
             return false;
         }
         
-        final Board other = (Board) obj;
+        final BoardModel other = (BoardModel) obj;
         return new EqualsBuilder()
                 .append(this.getId(),             other.getId())
                 .append(this.getGenerationTime(), other.getGenerationTime())

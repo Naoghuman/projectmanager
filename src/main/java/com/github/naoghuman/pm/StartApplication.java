@@ -25,6 +25,7 @@ import com.github.naoghuman.lib.database.core.DatabaseFacade;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.lib.properties.core.PropertiesFacade;
+import com.github.naoghuman.pm.configuration.ApplicationConfiguration;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -32,8 +33,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import com.github.naoghuman.pm.configuration.ApplicationConfiguration;
-import com.github.naoghuman.pm.sql.SqlProvider;
 
 /**
  *

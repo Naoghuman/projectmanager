@@ -17,6 +17,7 @@
 package com.github.naoghuman.pm.sql;
 
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
+import com.github.naoghuman.pm.model.BoardModel;
 import com.github.naoghuman.pm.model.Employeer;
 import com.github.naoghuman.pm.model.Project;
 import com.github.naoghuman.pm.model.ProjectType;
@@ -39,6 +40,17 @@ public final class SqlProvider {
     
     private SqlProvider() {
         
+    }
+
+    public void createBoard(BoardModel board) {
+        final StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        
+        BoardSqlService.getDefault().createOrUpate(board);
+        
+        stopWatch.split();
+        this.printToLog(stopWatch.toSplitString(), 1, "SqlProvider.createBoard(BoardModel)"); // NOI18N
+        stopWatch.stop();
     }
     
     public void createEmployeer(final Employeer employeer) {
@@ -72,6 +84,30 @@ public final class SqlProvider {
         stopWatch.split();
         this.printToLog(stopWatch.toSplitString(), 1, "SqlProvider.createProjectType(ProjectType)"); // NOI18N
         stopWatch.stop();
+    }
+
+    public void deleteBoard(final BoardModel board) {
+        final StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        
+        BoardSqlService.getDefault().delete(board);
+        
+        stopWatch.split();
+        this.printToLog(stopWatch.toSplitString(), 1, "SqlProvider.deleteBoard(long)"); // NOI18N
+        stopWatch.stop();
+    }
+    
+    public ObservableList<BoardModel> findAllBoardsFavorites(final boolean favorites) {
+        final StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        
+        final ObservableList<BoardModel> allFavorites = BoardSqlService.getDefault().findAllFavorites(favorites);
+        
+        stopWatch.split();
+        this.printToLog(stopWatch.toSplitString(), allFavorites.size(), "SqlProvider.findAllBoardsFavorites(): ObservableList<BoardModel>"); // NOI18N
+        stopWatch.stop();
+        
+        return allFavorites;
     }
     
     public ObservableList<Employeer> findAllEmployeers() {
@@ -219,6 +255,17 @@ public final class SqlProvider {
         sb.append("]");
         
         LoggerFacade.getDefault().debug(this.getClass(), sb.toString());
+    }
+    
+    public void updateBoardFavorite(final BoardModel board) {
+        final StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        
+        BoardSqlService.getDefault().updateBoardFavorite(board);
+        
+        stopWatch.split();
+        this.printToLog(stopWatch.toSplitString(), 1, "SqlProvider.updateBoardFavorite(BoardModel)"); // NOI18N
+        stopWatch.stop();
     }
     
     public void updateEmployeer(final Employeer employeer) {
